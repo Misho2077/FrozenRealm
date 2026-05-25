@@ -1184,7 +1184,7 @@ tr:hover td { background: rgba(0,200,255,.025); }
 <!-- ════════════ HOME PAGE ════════════ -->
 <div id="page-home">
   <section class="hero">
-    <div class="hero-eyebrow">✦ ხელნაკეთი · უნიკალური · მიწოდება მთელ საქართველოში</div>
+    <div class="hero-eyebrow">✦ ხელნაკეთი · უნიკალური · მიწოდება მთელ მსოფლიოში</div>
     <h1 class="hero-title">Frozen Realm</h1>
     <p class="hero-tagline">„სინათლეში გაყინული სამყაროები"</p>
     <div class="hero-divider"></div>
@@ -1506,13 +1506,17 @@ tr:hover td { background: rgba(0,200,255,.025); }
 const CREDS = { user: 'admin', pass: 'frozen2025' };
 const HUES  = ['#00c8ff','#7df9ff','#a020f0','#00f5c8','#ff5a9e','#0888ff','#ff6b35','#ffd700','#7fff00','#ff4d6d'];
 
+/* ─────────────────────────────────────────────────────────
+   YOUR PRODUCTS  —  img = filename in the SAME folder as this
+   HTML file (e.g. put totoro.jfif next to FrozenRealm_v4.html)
+   ───────────────────────────────────────────────────────── */
 let products = [
-  {id:1,title:"Totoro's Forest",subtitle:"ფისი და კაკლის ხე",price:150,tag:"Bestseller",hue:"#00c8ff",img:"totoro.jfif",qty:2,desc:"მყუდრო ტყის სცენა კრისტალურ ფისში, თბილი ანბერის LED განათებით. თითოეული ნივთი ხელნაკეთია და უნიკალურია."},
-  {id:2,title:"Diver under Ocean",subtitle:"ეპოქსი და შავი ხის ბაზა",price:150,tag:"New",hue:"#7df9ff",img:"diver.png",qty:2,desc:"ნეონ-განათებული ოკენქვეშა სამყარო."},
-  {id:3,title:"Diver under Ocean",subtitle:"ღრმა ჩასხმის ფისი",price:150,tag:"Limited",hue:"#a020f0",img:"diver2.png",qty:3,desc:"ოკეანის მიღმა განზომილება."},
-  {id:4,title:"Last dragons over sky",subtitle:"ფენოვანი ფისი და ფიჭვი",price:199,tag:"Popular",hue:"#00f5c8",img:"dragons.jpg",qty:3,desc:"უკანასკნელი დრაკონები."},
-  {id:5,title:"Khvicha Kvaratskhelia",subtitle:"შავი ფისი და ფერფლი",price:199,tag:null,hue:"#ff5a9e",img:"khvicha.jfif",qty:1,desc:"განუმეორებელი ხვიჩა კვარაცხელია."},
-  {id:6,title:"Lord Of The Rings",subtitle:"ლურჯი ფისი და ტიკი",price:199,tag:"Exclusive",hue:"#0888ff",img:"lor.png",qty:1,desc:"ბეჭდების მბრძანებელი."},
+  { id:1, title:"Totoro's Forest",       subtitle:"ფისი და კაკლის ხე",      price:150, tag:"Bestseller", hue:"#00c8ff", img:"totoro.jfif",  qty:2, desc:"მყუდრო ტყის სცენა კრისტალურ ფისში, თბილი ანბერის LED განათებით. თითოეული ნივთი ხელნაკეთია და უნიკალურია." },
+  { id:2, title:"Diver under Ocean",     subtitle:"ეპოქსი და შავი ხის ბაზა", price:150, tag:"New",        hue:"#7df9ff", img:"diver.png",    qty:2, desc:"ნეონ-განათებული ოკეანქვეშა სამყარო." },
+  { id:3, title:"Diver under Ocean II",  subtitle:"ღრმა ჩასხმის ფისი",       price:150, tag:"Limited",    hue:"#a020f0", img:"diver2.png",   qty:3, desc:"ოკეანის მიღმა განზომილება." },
+  { id:4, title:"Last Dragons over Sky", subtitle:"ფენოვანი ფისი და ფიჭვი",  price:199, tag:"Popular",    hue:"#00f5c8", img:"dragons.jpg",  qty:3, desc:"უკანასკნელი დრაკონები." },
+  { id:5, title:"Khvicha Kvaratskhelia", subtitle:"შავი ფისი და ფერფლი",     price:199, tag:null,          hue:"#ff5a9e", img:"khvicha.jfif", qty:1, desc:"განუმეორებელი ხვიჩა კვარაცხელია." },
+  { id:6, title:"Lord of the Rings",     subtitle:"ლურჯი ფისი და ტიკი",      price:199, tag:"Exclusive",  hue:"#0888ff", img:"lor.png",      qty:1, desc:"ბეჭდების მბრძანებელი." },
 ];
 
 let cart = [];
@@ -1808,9 +1812,13 @@ function confirmDelete() {
 function renderGrid() {
   $('product-grid').innerHTML = products.map(p => {
     const oos = p.qty === 0;
+    // onerror: if local file not found, fall back to the glow placeholder
+    const fallbackStyle = `background:radial-gradient(ellipse,${p.hue}20 0%,var(--bg3) 75%)`;
     const imgHtml = p.img
-      ? `<img src="${p.img}" alt="${p.title}">`
-      : `<div class="card-img-placeholder" style="background:radial-gradient(ellipse,${p.hue}20 0%,var(--bg3) 75%)">
+      ? `<img src="${p.img}" alt="${p.title}"
+             style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s"
+             onerror="this.parentNode.innerHTML='<div class=\'card-img-placeholder\' style=\'${fallbackStyle}\'><div class=\'placeholder-icon\' style=\'color:${p.hue};filter:drop-shadow(0 0 24px ${p.hue})\'>❄️</div></div>'">`
+      : `<div class="card-img-placeholder" style="${fallbackStyle}">
            <div class="placeholder-icon" style="color:${p.hue};filter:drop-shadow(0 0 24px ${p.hue})">❄️</div>
          </div>`;
     return `
@@ -1913,9 +1921,11 @@ function openModal(id) {
   const p = products.find(x => x.id === id); if (!p) return;
   currentModalId = id;
   const wrap = $('pmodal-img-wrap');
+  const modalFallback = `<div class="modal-img-placeholder" style="height:100%;background:radial-gradient(ellipse,${p.hue}22 0%,var(--bg3) 75%)"><span style="color:${p.hue};font-size:6rem">❄️</span></div>`;
   wrap.innerHTML = p.img
-    ? `<img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block">`
-    : `<div class="modal-img-placeholder" style="height:100%;background:radial-gradient(ellipse,${p.hue}22 0%,var(--bg3) 75%)"><span style="color:${p.hue}">❄️</span></div>`;
+    ? `<img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block"
+           onerror="this.parentNode.innerHTML='${modalFallback.replace(/'/g, "\'")}'">`
+    : modalFallback;
   $('pmodal-title').textContent  = p.title;
   $('pmodal-sub').textContent    = p.subtitle || '';
   $('pmodal-desc').textContent   = p.desc || '';
