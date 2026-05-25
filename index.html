@@ -2,366 +2,1197 @@
 <html lang="ka">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<!-- ✅ MOBILE: viewport meta ensures correct scaling on all devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+<meta name="theme-color" content="#03060f"/>
 <title>Frozen Realm — სინათლეში გაყინული სამყაროები</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+Georgian:wght@300;400;500&display=swap" rel="stylesheet"/>
+
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#03060f;--bg2:#060d1a;--bg3:#091425;
-  --border:rgba(0,200,255,0.12);
-  --glow:#00c8ff;--glow2:#00f5c8;--danger:#ff4d6d;--warn:#f5a623;
-  --text:#e8f4ff;--muted:rgba(200,230,255,0.5);--card:rgba(6,18,40,0.85);
-  --font-h:'Cinzel',serif;--font-b:'Noto Sans Georgian',sans-serif;
+/* ════════════════════════════════════════════════════════════
+   RESET & ROOT VARIABLES
+   ════════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font-b);overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.35}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--glow);border-radius:2px}
-.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.ambient::before{content:'';position:absolute;width:900px;height:900px;background:radial-gradient(circle,rgba(0,180,255,.07) 0%,transparent 70%);top:-200px;left:-200px;animation:drift1 18s ease-in-out infinite alternate}
-.ambient::after{content:'';position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(0,240,180,.05) 0%,transparent 70%);bottom:-100px;right:-100px;animation:drift2 22s ease-in-out infinite alternate}
-@keyframes drift1{to{transform:translate(120px,80px)}}
-@keyframes drift2{to{transform:translate(-80px,-120px)}}
 
-/* ── HEADER ── */
-.header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:72px;background:rgba(3,6,15,.82);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.logo-wrap{display:flex;align-items:center;gap:14px;cursor:pointer}
-.logo-icon{width:10px;height: 10px;background:linear-gradient(135deg,#00c8ff 0%,#0050a0 60%,#000820 100%);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 20px rgba(0,200,255,.4);animation:pulse-logo 3s ease-in-out infinite}
-@keyframes pulse-logo{0%,100%{box-shadow:0 0 20px rgba(0,200,255,.4)}50%{box-shadow:0 0 35px rgba(0,200,255,.7),0 0 60px rgba(0,200,255,.2)}}
-.logo-text{font-family:var(--font-h);font-size:1.1rem;letter-spacing:.15em}
-.logo-sub{font-size:.58rem;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin-top:2px}
-.header-right{display:flex;align-items:center;gap:12px}
-.cart-btn{background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:2px;font-family:var(--font-b);font-size:.78rem;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .25s}
-.cart-btn:hover{border-color:var(--glow);color:var(--glow);box-shadow:0 0 15px rgba(0,200,255,.2)}
-.cart-badge{background:var(--glow);color:var(--bg);font-size:.65rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.admin-link{background:transparent;border:1px solid rgba(245,166,35,.3);color:rgba(245,166,35,.8);padding:8px 16px;border-radius:2px;font-family:var(--font-b);font-size:.7rem;cursor:pointer;transition:all .25s}
-.admin-link:hover{border-color:var(--warn);color:var(--warn)}
+:root {
+  /* Colors */
+  --bg:     #03060f;
+  --bg2:    #060d1a;
+  --bg3:    #091425;
+  --border: rgba(0, 200, 255, 0.12);
+  --glow:   #00c8ff;
+  --glow2:  #00f5c8;
+  --danger: #ff4d6d;
+  --warn:   #f5a623;
+  --text:   #e8f4ff;
+  --muted:  rgba(200, 230, 255, 0.5);
+  --card:   rgba(6, 18, 40, 0.85);
 
-.logo-icon {
-  /* გაზარდე კონტეინერის ზომა, რომ ფოტო ჩატიოს (მაგალითად 40px) */
-  width: 60px;
-  height: 60px;
-  
-  /* ესენი ძველი კოდიდან გრჩება */
+  /* Typography */
+  --font-h: 'Cinzel', serif;
+  --font-b: 'Noto Sans Georgian', sans-serif;
+
+  /* Spacing (used consistently) */
+  --gap-sm:  12px;
+  --gap-md:  20px;
+  --gap-lg:  32px;
+  --pad-page: clamp(16px, 5vw, 48px);
+
+  /* Touch targets — WCAG minimum 44×44px */
+  --touch: 48px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BASE
+   ════════════════════════════════════════════════════════════ */
+html {
+  scroll-behavior: smooth;
+  /* ✅ MOBILE: prevent iOS font size inflation */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-b);
+  /* ✅ MOBILE: no horizontal scroll ever */
+  overflow-x: hidden;
+  min-width: 320px;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.35;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--glow); border-radius: 2px; }
+
+/* Ambient glow blobs */
+.ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.ambient::before {
+  content: '';
+  position: absolute;
+  width: 900px; height: 900px;
+  background: radial-gradient(circle, rgba(0,180,255,.07) 0%, transparent 70%);
+  top: -200px; left: -200px;
+  animation: drift1 18s ease-in-out infinite alternate;
+}
+.ambient::after {
+  content: '';
+  position: absolute;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(0,240,180,.05) 0%, transparent 70%);
+  bottom: -100px; right: -100px;
+  animation: drift2 22s ease-in-out infinite alternate;
+}
+@keyframes drift1 { to { transform: translate(120px, 80px); } }
+@keyframes drift2 { to { transform: translate(-80px, -120px); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideLeft { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse-logo {
+  0%,100% { box-shadow: 0 0 20px rgba(0,200,255,.4); }
+  50%      { box-shadow: 0 0 35px rgba(0,200,255,.7), 0 0 60px rgba(0,200,255,.2); }
+}
+
+/* Utility */
+.hidden { display: none !important; }
+
+/* ════════════════════════════════════════════════════════════
+   HEADER  (Desktop)
+   ════════════════════════════════════════════════════════════ */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%; /* თუ მრგვალი ლოგო გინდა, უბრალოდ 50% საკმარისია */
-  overflow: hidden;   /* ეს აუცილებელია: რაც ჩარჩოდან გავა, იმას მოჭრის */
-  
+  justify-content: space-between;
+  padding: 0 var(--pad-page);
+  height: 72px;
+  background: rgba(3, 6, 15, .88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Logo */
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  /* ✅ TOUCH: large enough tap target */
+  min-height: var(--touch);
+}
+.logo-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: linear-gradient(135deg, #00c8ff 0%, #0050a0 60%, #000820 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
   box-shadow: 0 0 20px rgba(0,200,255,.4);
   animation: pulse-logo 3s ease-in-out infinite;
 }
+.logo-text { font-family: var(--font-h); font-size: 1.1rem; letter-spacing: .15em; }
+.logo-sub  { font-size: .58rem; letter-spacing: .22em; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
 
-/* დაამატე ეს ახალი კოდი უშუალოდ ფოტოსთვის */
-.logo-icon img {
+/* Desktop nav-right */
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+/* ✅ TOUCH: all header buttons ≥ 44px height */
+.cart-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0 20px;
+  height: var(--touch);
+  border-radius: 2px;
+  font-family: var(--font-b); font-size: .78rem;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 10px;
+  transition: all .25s;
+  white-space: nowrap;
+}
+.cart-btn:hover { border-color: var(--glow); color: var(--glow); box-shadow: 0 0 15px rgba(0,200,255,.2); }
+
+.cart-badge {
+  background: var(--glow); color: var(--bg);
+  font-size: .65rem; font-weight: 700;
+  width: 18px; height: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.admin-link {
+  background: transparent;
+  border: 1px solid rgba(245,166,35,.3);
+  color: rgba(245,166,35,.8);
+  padding: 0 16px;
+  height: var(--touch);
+  border-radius: 2px;
+  font-family: var(--font-b); font-size: .7rem;
+  cursor: pointer;
+  display: flex; align-items: center;
+  transition: all .25s;
+  white-space: nowrap;
+}
+.admin-link:hover { border-color: var(--warn); color: var(--warn); }
+
+/* ════════════════════════════════════════════════════════════
+   HAMBURGER MENU  ✅ MOBILE NAV
+   ════════════════════════════════════════════════════════════ */
+
+/* The hamburger button — hidden on desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: var(--touch);
+  height: var(--touch);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color .2s;
+  flex-shrink: 0;
+}
+.hamburger:hover { border-color: var(--glow); }
+.hamburger span {
+  display: block;
+  width: 20px; height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform .3s ease, opacity .3s ease;
+  transform-origin: center;
+}
+/* Animate to X when open */
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav dropdown */
+.mobile-menu {
+  display: none; /* shown via JS class */
+  position: fixed;
+  top: 60px; left: 0; right: 0;
+  z-index: 99;
+  background: rgba(4, 10, 24, .97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0 12px;
+  animation: slideDown .25s ease;
+}
+.mobile-menu.open { display: block; }
+.mobile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* ფოტოს პროპორციებს ინარჩუნებს და ისე სვამს ჩარჩოში */
+  padding: 0 var(--pad-page);
+  /* ✅ TOUCH: 52px height for each item */
+  height: 52px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: var(--font-b); font-size: .9rem;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  text-align: left;
+}
+.mobile-menu-item:hover   { background: rgba(0,200,255,.07); color: var(--glow); }
+.mobile-menu-item .m-icon { font-size: 1.1rem; width: 24px; text-align: center; flex-shrink: 0; }
+.mobile-menu-divider      { height: 1px; background: var(--border); margin: 6px var(--pad-page); }
+/* Cart count inside mobile menu */
+.mobile-cart-count {
+  margin-left: auto;
+  background: var(--glow); color: var(--bg);
+  font-size: .65rem; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px;
 }
 
-/* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5vw 60px;position:relative;z-index:1}
-.hero-eyebrow{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--glow);margin-bottom:24px;animation:fadeUp 1s ease both}
-.hero-title{font-family:var(--font-h);font-size:clamp(2.8rem,7vw,6rem);font-weight:700;line-height:1.05;letter-spacing:.05em;background:linear-gradient(135deg,#fff 30%,var(--glow) 70%,var(--glow2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeUp 1s .15s ease both}
-.hero-tagline{margin-top:20px;font-size:clamp(.95rem,2vw,1.2rem);font-weight:300;color:var(--muted);animation:fadeUp 1s .3s ease both}
-.hero-divider{width:80px;height:1px;background:linear-gradient(to right,transparent,var(--glow),transparent);margin:32px auto;animation:fadeUp 1s .45s ease both}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;background:transparent;border:1px solid var(--glow);color:var(--glow);padding:14px 36px;font-family:var(--font-b);font-size:.82rem;cursor:pointer;border-radius:2px;transition:all .3s;animation:fadeUp 1s .6s ease both}
-.hero-cta:hover{background:var(--glow);color:var(--bg);box-shadow:0 0 30px rgba(0,200,255,.35)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── CATALOG ── */
-.catalog{padding:80px 5vw 100px;position:relative;z-index:1}
-.section-header{text-align:center;margin-bottom:64px}
-.section-label{font-size:.63rem;letter-spacing:.32em;text-transform:uppercase;color:var(--glow);margin-bottom:12px}
-.section-title{font-family:var(--font-h);font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:.06em}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;max-width:1300px;margin:0 auto}
-
-/* ── PRODUCT CARD ── */
-.card{background:var(--card);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;transition:transform .35s,box-shadow .35s,border-color .35s}
-.card:hover:not(.oos){transform:translateY(-6px);border-color:rgba(0,200,255,.3);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(0,200,255,.08)}
-.card.oos{opacity:.6;cursor:default}
-.card-img{width:100%;height:280px;overflow:hidden;position:relative;background:var(--bg3)}
-.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s;display:block}
-.card:hover:not(.oos) .card-img img{transform:scale(1.06)}
-.card-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(0,200,255,.08) 0%,var(--bg3) 75%)}
-.placeholder-icon{font-size:4rem;opacity:.4}
-.card-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(3,6,15,.6) 0%,transparent 50%)}
-.card-tag{position:absolute;top:14px;left:14px;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:1px;background:rgba(0,200,255,.18);border:1px solid rgba(0,200,255,.35);color:var(--glow);backdrop-filter:blur(8px)}
-.card-tag.oos-tag{background:rgba(255,77,109,.18);border-color:rgba(255,77,109,.35);color:var(--danger)}
-.card-body{padding:20px 22px 22px}
-.card-title{font-family:var(--font-h);font-size:1.05rem;letter-spacing:.05em}
-.card-sub{font-size:.72rem;color:var(--muted);margin-top:4px}
-.card-stock-low{font-size:.68rem;color:var(--warn);margin-top:6px}
-.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
-.card-price{font-family:var(--font-h);font-size:1.25rem;color:var(--glow)}
-.add-btn{background:transparent;border:1px solid var(--border);color:var(--text);padding:8px 18px;font-family:var(--font-b);font-size:.72rem;cursor:pointer;border-radius:2px;transition:all .25s}
-.add-btn:hover:not(:disabled),.add-btn.added{background:var(--glow);border-color:var(--glow);color:var(--bg);box-shadow:0 0 20px rgba(0,200,255,.3)}
-.add-btn:disabled{opacity:.5;cursor:not-allowed;border-color:rgba(255,77,109,.3);color:var(--danger)}
-
-/* ── PRODUCT VIEW MODAL ── */
-.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(2,5,14,.9);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:4px;width:100%;max-width:820px;display:flex;overflow:hidden;position:relative;animation:slideUp .3s ease;max-height:90vh}
-@media(max-width:640px){.modal{flex-direction:column}}
-@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.modal-img-side{width:380px;flex-shrink:0;position:relative;overflow:hidden;background:var(--bg3)}
-.modal-img-side img{width:100%;height:100%;object-fit:cover;display:block}
-.modal-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(0,200,255,.08) 0%,var(--bg3) 75%);font-size:6rem}
-@media(max-width:640px){.modal-img-side{width:100%;height:220px}}
-.modal-right{padding:40px 36px;flex:1;overflow-y:auto}
-.modal-eyebrow{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--glow)}
-.modal-title{font-family:var(--font-h);font-size:1.7rem;margin:10px 0 4px;line-height:1.2}
-.modal-sub{color:var(--muted);font-size:.78rem}
-.modal-divider{width:40px;height:1px;background:var(--glow);margin:20px 0;opacity:.4}
-.modal-desc{font-size:.86rem;line-height:1.8;color:var(--muted);font-weight:300}
-.modal-price{font-family:var(--font-h);font-size:2rem;color:var(--glow);margin:22px 0 6px}
-.modal-stock-info{font-size:.75rem;color:var(--muted);margin-bottom:18px}
-.modal-add{width:100%;padding:14px;background:transparent;border:1px solid var(--glow);color:var(--glow);font-family:var(--font-b);font-size:.8rem;cursor:pointer;border-radius:2px;transition:all .3s}
-.modal-add:hover:not(:disabled){background:var(--glow);color:var(--bg);box-shadow:0 0 30px rgba(0,200,255,.3)}
-.modal-add.added{background:var(--glow);color:var(--bg)}
-.modal-add:disabled{opacity:.5;cursor:not-allowed;border-color:var(--danger);color:var(--danger)}
-.modal-close{position:absolute;top:14px;right:16px;background:rgba(3,6,15,.7);border:1px solid var(--border);border-radius:50%;width:34px;height:34px;color:var(--muted);font-size:1rem;cursor:pointer;z-index:10;transition:all .2s;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
-.modal-close:hover{color:var(--text);border-color:var(--glow)}
-
-/* ── CART ── */
-.cart-overlay{position:fixed;inset:0;z-index:300;background:rgba(2,5,14,.7);backdrop-filter:blur(6px);animation:fadeIn .2s ease}
-.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,95vw);background:var(--bg2);border-left:1px solid var(--border);z-index:301;display:flex;flex-direction:column;animation:slideLeft .3s ease}
-@keyframes slideLeft{from{transform:translateX(100%)}to{transform:translateX(0)}}
-.cart-head{padding:24px 28px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.cart-head-title{font-family:var(--font-h);font-size:1rem;letter-spacing:.08em}
-.close-btn{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer}
-.close-btn:hover{color:var(--text)}
-.cart-items{flex:1;overflow-y:auto;padding:20px 28px}
-.cart-empty{text-align:center;color:var(--muted);font-size:.85rem;margin-top:60px;font-style:italic;line-height:1.8}
-.cart-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
-.cart-item-thumb{width:56px;height:56px;border-radius:3px;flex-shrink:0;overflow:hidden;border:1px solid var(--border);background:var(--bg3)}
-.cart-item-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.cart-item-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.6rem}
-.cart-item-info{flex:1;min-width:0}
-.cart-item-title{font-size:.82rem;font-family:var(--font-h);letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cart-item-price{color:var(--glow);font-size:.82rem;margin-top:4px}
-.cart-qty{display:flex;align-items:center;gap:8px;margin-top:8px}
-.qty-btn{width:22px;height:22px;background:rgba(0,200,255,.08);border:1px solid var(--border);color:var(--text);font-size:.85rem;cursor:pointer;border-radius:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.qty-btn:hover{border-color:var(--glow);color:var(--glow)}
-.qty-num{font-size:.8rem;min-width:16px;text-align:center}
-.remove-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.95rem;transition:color .2s;flex-shrink:0}
-.remove-btn:hover{color:var(--danger)}
-.cart-foot{padding:24px 28px;border-top:1px solid var(--border)}
-.cart-total{display:flex;justify-content:space-between;margin-bottom:20px}
-.cart-total-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.cart-total-val{font-family:var(--font-h);font-size:1.4rem;color:var(--glow)}
-.checkout-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--glow) 0%,var(--glow2) 100%);border:none;color:var(--bg);font-family:var(--font-b);font-size:.82rem;font-weight:700;cursor:pointer;border-radius:2px;transition:all .3s}
-.checkout-btn:hover{box-shadow:0 0 40px rgba(0,200,255,.4);transform:translateY(-1px)}
-.checkout-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-
-/* ── CHECKOUT ── */
-.checkout-page{min-height:100vh;padding:110px 5vw 80px;position:relative;z-index:1;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:48px;align-items:start}
-@media(max-width:768px){.checkout-page{grid-template-columns:1fr}}
-.checkout-form-section h2{font-family:var(--font-h);font-size:1.6rem;letter-spacing:.06em;margin-bottom:8px}
-.checkout-sub{color:var(--muted);font-size:.8rem;margin-bottom:40px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.form-row.full{grid-template-columns:1fr}
-.form-group{display:flex;flex-direction:column;gap:6px}
-.form-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-.form-input{background:rgba(0,200,255,.04);border:1px solid var(--border);border-radius:2px;padding:12px 16px;color:var(--text);font-family:var(--font-b);font-size:.88rem;outline:none;transition:border-color .2s,box-shadow .2s;width:100%}
-.form-input:focus{border-color:rgba(0,200,255,.4);box-shadow:0 0 15px rgba(0,200,255,.08)}
-.form-input::placeholder{color:rgba(200,230,255,.22)}
-select.form-input option{background:var(--bg2)}
-textarea.form-input{resize:vertical;min-height:80px}
-.form-section-title{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--glow);margin:28px 0 16px}
-.payment-box{background:rgba(0,200,255,.04);border:1px solid var(--border);border-radius:4px;padding:20px;margin-top:8px}
-.payment-label{display:flex;align-items:center;gap:12px;cursor:pointer}
-.payment-radio{accent-color:var(--glow);width:16px;height:16px}
-.payment-name{font-size:.85rem}
-.payment-icons{display:flex;gap:8px;margin-left:auto}
-.payment-icon{background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:3px;padding:3px 8px;font-size:.62rem;color:var(--muted)}
-.submit-btn{width:100%;margin-top:28px;padding:16px;background:linear-gradient(135deg,var(--glow) 0%,var(--glow2) 100%);border:none;color:var(--bg);font-family:var(--font-b);font-size:.82rem;font-weight:700;cursor:pointer;border-radius:2px;transition:all .3s}
-.submit-btn:hover{box-shadow:0 0 40px rgba(0,200,255,.4);transform:translateY(-1px)}
-.back-link{display:block;text-align:center;margin-top:14px;background:none;border:none;color:var(--muted);font-family:var(--font-b);font-size:.75rem;cursor:pointer;transition:color .2s}
-.back-link:hover{color:var(--glow)}
-.order-summary{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:28px;position:sticky;top:90px}
-.order-summary h3{font-family:var(--font-h);font-size:1rem;letter-spacing:.08em;margin-bottom:24px}
-.summary-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
-.summary-thumb{width:44px;height:44px;border-radius:3px;overflow:hidden;flex-shrink:0;background:var(--bg3);border:1px solid var(--border)}
-.summary-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.summary-thumb-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
-.summary-info{flex:1;font-size:.8rem}
-.summary-info-sub{font-size:.7rem;color:var(--muted);margin-top:2px}
-.summary-item-price{font-size:.82rem;color:var(--muted);flex-shrink:0}
-.sum-line{display:flex;justify-content:space-between;font-size:.73rem;color:var(--muted);padding:5px 0}
-.sum-total{display:flex;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
-.sum-total-label{font-size:.73rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.sum-total-val{font-family:var(--font-h);font-size:1.3rem;color:var(--glow)}
-
-/* ── SUCCESS ── */
-.success-page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 5vw 80px;text-align:center;position:relative;z-index:1}
-.success-icon{width:90px;height:90px;border-radius:50%;background:rgba(0,200,255,.1);border:2px solid var(--glow);display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto 32px;box-shadow:0 0 50px rgba(0,200,255,.25);animation:pop .5s cubic-bezier(.175,.885,.32,1.275) both}
-@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
-.success-title{font-family:var(--font-h);font-size:clamp(1.8rem,4vw,3rem);margin-bottom:12px}
-.success-msg{color:var(--muted);font-size:.93rem;line-height:1.8;max-width:480px;font-weight:300}
-.success-id{margin:28px 0;background:rgba(0,200,255,.06);border:1px solid var(--border);border-radius:3px;padding:14px 28px;font-size:.73rem;letter-spacing:.16em;color:var(--muted)}
-.success-detail{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px 32px;margin:10px 0 36px;text-align:left;width:100%;max-width:480px}
-.detail-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:.82rem}
-.detail-row:last-child{border-bottom:none}
-.detail-label{color:var(--muted)}
-.detail-val{color:var(--text);font-weight:500;text-align:right;max-width:65%}
-.back-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:12px 32px;font-family:var(--font-b);font-size:.75rem;cursor:pointer;border-radius:2px;transition:all .25s}
-.back-btn:hover{border-color:var(--glow);color:var(--glow)}
-
-/* ── PROCESSING ── */
-.processing{position:fixed;inset:0;z-index:500;background:rgba(3,6,15,.92);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
-.spinner{width:52px;height:52px;border:2px solid rgba(0,200,255,.15);border-top-color:var(--glow);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.processing-text{font-size:.85rem;letter-spacing:.12em;color:var(--muted)}
-
-/* ── FOOTER ── */
-.footer{border-top:1px solid var(--border);padding:40px 5vw;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;color:var(--muted);font-size:.73rem}
-.footer-brand{font-family:var(--font-h);font-size:.9rem;color:var(--text);margin-bottom:6px}
-
-/* ══════════════ ADMIN LOGIN ══════════════ */
-.admin-login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;padding:20px}
-.admin-login-box{width:100%;max-width:420px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:48px 40px}
-.admin-login-icon{font-size:2.5rem;text-align:center;margin-bottom:20px}
-.admin-login-title{font-family:var(--font-h);font-size:1.5rem;text-align:center;margin-bottom:6px;letter-spacing:.08em}
-.admin-login-sub{text-align:center;color:var(--muted);font-size:.78rem;margin-bottom:36px}
-.admin-err{color:var(--danger);font-size:.78rem;text-align:center;margin-bottom:12px;min-height:20px}
-.login-btn{width:100%;margin-top:20px;padding:14px;background:linear-gradient(135deg,var(--warn) 0%,#c47800 100%);border:none;color:#000;font-family:var(--font-b);font-size:.82rem;font-weight:700;cursor:pointer;border-radius:2px;transition:all .3s}
-.login-btn:hover{box-shadow:0 0 30px rgba(245,166,35,.4);transform:translateY(-1px)}
-
-/* ══════════════ ADMIN DASHBOARD ══════════════ */
-.admin-layout{display:flex;min-height:100vh;position:relative;z-index:1}
-.admin-sidebar{width:240px;flex-shrink:0;background:rgba(4,10,24,.97);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:88px 0 24px;position:fixed;top:0;bottom:0;left:0;z-index:50;overflow-y:auto}
-.admin-nav-label{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);padding:0 24px;margin:20px 0 8px}
-.admin-nav-item{display:flex;align-items:center;gap:12px;padding:12px 24px;font-size:.82rem;cursor:pointer;transition:all .2s;border-left:2px solid transparent;color:var(--muted);white-space:nowrap}
-.admin-nav-item:hover{color:var(--text);background:rgba(0,200,255,.05)}
-.admin-nav-item.active{color:var(--glow);border-left-color:var(--glow);background:rgba(0,200,255,.07)}
-.admin-nav-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
-.admin-content{margin-left:240px;flex:1;padding:92px 40px 60px;min-height:100vh}
-@media(max-width:900px){
-  .admin-sidebar{width:56px}
-  .admin-sidebar .admin-nav-label,.admin-sidebar .admin-nav-item .nav-text{display:none}
-  .admin-content{margin-left:56px;padding:92px 20px 60px}
+/* ════════════════════════════════════════════════════════════
+   HERO
+   ════════════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100svh; /* svh = small viewport height — correct on mobile */
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px var(--pad-page) 60px;
+  position: relative; z-index: 1;
 }
-.admin-page-title{font-family:var(--font-h);font-size:1.6rem;letter-spacing:.06em;margin-bottom:6px}
-.admin-page-sub{color:var(--muted);font-size:.8rem;margin-bottom:36px}
+.hero-eyebrow {
+  font-size: .68rem; letter-spacing: .32em;
+  text-transform: uppercase; color: var(--glow);
+  margin-bottom: 24px;
+  animation: fadeUp 1s ease both;
+}
+.hero-title {
+  font-family: var(--font-h);
+  /* ✅ clamp scales gracefully from 320px → desktop */
+  font-size: clamp(2.2rem, 10vw, 6rem);
+  font-weight: 700; line-height: 1.05; letter-spacing: .05em;
+  background: linear-gradient(135deg, #fff 30%, var(--glow) 70%, var(--glow2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: fadeUp 1s .15s ease both;
+}
+.hero-tagline {
+  margin-top: 16px;
+  font-size: clamp(.9rem, 3vw, 1.2rem);
+  font-weight: 300; color: var(--muted);
+  animation: fadeUp 1s .3s ease both;
+}
+.hero-divider {
+  width: 80px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--glow), transparent);
+  margin: 28px auto;
+  animation: fadeUp 1s .45s ease both;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent;
+  border: 1px solid var(--glow); color: var(--glow);
+  /* ✅ TOUCH: min 48px height */
+  padding: 0 36px; height: var(--touch);
+  font-family: var(--font-b); font-size: .82rem;
+  cursor: pointer; border-radius: 2px;
+  transition: all .3s;
+  animation: fadeUp 1s .6s ease both;
+}
+.hero-cta:hover { background: var(--glow); color: var(--bg); box-shadow: 0 0 30px rgba(0,200,255,.35); }
 
-/* STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:20px;margin-bottom:48px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px;position:relative;overflow:hidden}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.sc-blue::before{background:var(--glow)}.sc-green::before{background:var(--glow2)}.sc-warn::before{background:var(--warn)}.sc-red::before{background:var(--danger)}
-.stat-val{font-family:var(--font-h);font-size:2rem;margin-bottom:6px}
-.stat-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.sc-blue .stat-val{color:var(--glow)}.sc-green .stat-val{color:var(--glow2)}.sc-warn .stat-val{color:var(--warn)}.sc-red .stat-val{color:var(--danger)}
+/* ════════════════════════════════════════════════════════════
+   CATALOG
+   ════════════════════════════════════════════════════════════ */
+.catalog {
+  padding: 80px var(--pad-page) 100px;
+  position: relative; z-index: 1;
+}
+.section-header  { text-align: center; margin-bottom: 56px; }
+.section-label   { font-size: .63rem; letter-spacing: .32em; text-transform: uppercase; color: var(--glow); margin-bottom: 12px; }
+.section-title   { font-family: var(--font-h); font-size: clamp(1.4rem, 4vw, 2.4rem); letter-spacing: .06em; }
 
-/* TABLES */
-.admin-table-wrap{background:var(--card);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:32px}
-.admin-table-head{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:12px}
-.admin-table-title{font-family:var(--font-h);font-size:.95rem;letter-spacing:.06em}
-.admin-add-btn{background:transparent;border:1px solid var(--glow);color:var(--glow);padding:8px 18px;font-family:var(--font-b);font-size:.72rem;cursor:pointer;border-radius:2px;transition:all .25s}
-.admin-add-btn:hover{background:var(--glow);color:var(--bg)}
-.tbl-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:500px}
-th{text-align:left;padding:12px 20px;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);font-weight:400;white-space:nowrap}
-td{padding:12px 20px;font-size:.82rem;border-bottom:1px solid rgba(0,200,255,.06);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(0,200,255,.025)}
-.badge{display:inline-block;padding:3px 10px;border-radius:2px;font-size:.63rem;letter-spacing:.08em;white-space:nowrap}
-.b-ok{background:rgba(0,245,200,.12);color:var(--glow2);border:1px solid rgba(0,245,200,.25)}
-.b-low{background:rgba(245,166,35,.12);color:var(--warn);border:1px solid rgba(245,166,35,.25)}
-.b-oos{background:rgba(255,77,109,.12);color:var(--danger);border:1px solid rgba(255,77,109,.25)}
-.b-paid{background:rgba(0,245,200,.12);color:var(--glow2);border:1px solid rgba(0,245,200,.25)}
-.tbl-actions{display:flex;gap:8px}
-.tbl-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:5px 12px;font-size:.68rem;cursor:pointer;border-radius:2px;transition:all .2s;font-family:var(--font-b)}
-.tbl-btn.edit:hover{border-color:var(--glow);color:var(--glow)}
-.tbl-btn.del:hover{border-color:var(--danger);color:var(--danger)}
-.tbl-img{width:46px;height:46px;border-radius:3px;overflow:hidden;border:1px solid var(--border);background:var(--bg3);flex-shrink:0}
-.tbl-img img{width:100%;height:100%;object-fit:cover;display:block}
-.tbl-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+/* ✅ LAYOUT: auto-fill grid → 1 column on phones, 2 on tablet, 3 on desktop */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: clamp(14px, 3vw, 28px);
+  max-width: 1300px;
+  margin: 0 auto;
+}
 
-/* ═══ PRODUCT FORM MODAL ═══ */
-.form-modal-overlay{position:fixed;inset:0;z-index:400;background:rgba(2,5,14,.93);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s ease}
-.form-modal{background:var(--bg2);border:1px solid var(--border);border-radius:6px;width:100%;max-width:600px;max-height:92vh;overflow-y:auto;padding:40px;position:relative;animation:slideUp .3s ease}
-.form-modal h3{font-family:var(--font-h);font-size:1.3rem;letter-spacing:.06em;margin-bottom:6px}
-.form-modal-sub{color:var(--muted);font-size:.78rem;margin-bottom:32px}
-.form-modal-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;transition:color .2s}
-.form-modal-close:hover{color:var(--text)}
+/* ════════════════════════════════════════════════════════════
+   PRODUCT CARD
+   ════════════════════════════════════════════════════════════ */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px; overflow: hidden;
+  cursor: pointer;
+  transition: transform .35s, box-shadow .35s, border-color .35s;
+  /* ✅ MOBILE: prevent cards overflowing viewport */
+  width: 100%;
+}
+/* Hover lift only on non-touch — avoids sticky hover on phones */
+@media (hover: hover) {
+  .card:hover:not(.oos) {
+    transform: translateY(-6px);
+    border-color: rgba(0,200,255,.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 40px rgba(0,200,255,.08);
+  }
+}
+.card.oos { opacity: .6; cursor: default; }
 
-/* IMAGE UPLOAD */
-.img-upload-area{border:2px dashed var(--border);border-radius:4px;padding:32px 20px;text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;background:rgba(0,200,255,.02)}
-.img-upload-area:hover,.img-upload-area.drag{border-color:var(--glow);background:rgba(0,200,255,.06)}
-.img-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.img-upload-icon{font-size:2.5rem;margin-bottom:10px;display:block}
-.img-upload-label{font-size:.8rem;color:var(--muted);line-height:1.6}
-.img-upload-label strong{color:var(--glow)}
-.img-preview-wrap{position:relative;border-radius:4px;overflow:hidden;border:1px solid var(--border)}
-.img-preview-wrap img{width:100%;height:200px;object-fit:cover;display:block}
-.img-preview-remove{position:absolute;top:8px;right:8px;background:rgba(255,77,109,.85);border:none;border-radius:50%;width:28px;height:28px;color:#fff;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.img-preview-remove:hover{background:var(--danger);transform:scale(1.1)}
-.img-preview-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(3,6,15,.8),transparent);padding:12px 14px 8px;font-size:.72rem;color:var(--muted)}
+.card-img {
+  width: 100%;
+  /* ✅ MOBILE: responsive height via aspect-ratio instead of fixed px */
+  aspect-ratio: 4/3;
+  overflow: hidden; position: relative; background: var(--bg3);
+}
+.card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .5s;
+}
+@media (hover: hover) { .card:hover:not(.oos) .card-img img { transform: scale(1.06); } }
 
-.color-picker{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
-.color-opt{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s}
-.color-opt:hover,.color-opt.sel{border-color:#fff;transform:scale(1.15)}
-.form-modal-actions{display:flex;gap:12px;margin-top:28px}
-.modal-save-btn{flex:1;padding:13px;background:linear-gradient(135deg,var(--glow) 0%,var(--glow2) 100%);border:none;color:var(--bg);font-family:var(--font-b);font-size:.8rem;font-weight:700;cursor:pointer;border-radius:2px;transition:all .3s}
-.modal-save-btn:hover{box-shadow:0 0 25px rgba(0,200,255,.35)}
-.modal-cancel-btn{padding:13px 24px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--font-b);font-size:.8rem;cursor:pointer;border-radius:2px;transition:all .2s}
-.modal-cancel-btn:hover{border-color:var(--text);color:var(--text)}
+.card-img-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at center, rgba(0,200,255,.08) 0%, var(--bg3) 75%);
+}
+.placeholder-icon { font-size: 4rem; opacity: .4; }
+.card-img-overlay  { position: absolute; inset: 0; background: linear-gradient(to top, rgba(3,6,15,.6) 0%, transparent 50%); }
 
-/* CONFIRM */
-.confirm-box{background:var(--bg2);border:1px solid rgba(255,77,109,.3);border-radius:6px;width:100%;max-width:380px;padding:36px;text-align:center;animation:slideUp .3s ease}
-.confirm-box h4{font-family:var(--font-h);font-size:1.1rem;margin-bottom:10px}
-.confirm-box p{color:var(--muted);font-size:.82rem;line-height:1.7;margin-bottom:28px}
-.confirm-actions{display:flex;gap:12px;justify-content:center}
-.confirm-del-btn{padding:11px 28px;background:var(--danger);border:none;color:#fff;font-family:var(--font-b);font-size:.78rem;cursor:pointer;border-radius:2px;transition:all .2s}
-.confirm-del-btn:hover{box-shadow:0 0 20px rgba(255,77,109,.4)}
-.confirm-cancel-btn{padding:11px 24px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--font-b);font-size:.78rem;cursor:pointer;border-radius:2px;transition:all .2s}
-.confirm-cancel-btn:hover{border-color:var(--text);color:var(--text)}
+.card-tag {
+  position: absolute; top: 12px; left: 12px;
+  font-size: .58rem; letter-spacing: .12em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px;
+  background: rgba(0,200,255,.18);
+  border: 1px solid rgba(0,200,255,.35);
+  color: var(--glow); backdrop-filter: blur(8px);
+}
+.card-tag.oos-tag { background: rgba(255,77,109,.18); border-color: rgba(255,77,109,.35); color: var(--danger); }
 
-/* TOAST */
-.toast{position:fixed;bottom:30px;right:30px;z-index:600;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:14px 22px;font-size:.82rem;display:flex;align-items:center;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,.5);animation:slideUp .3s ease;max-width:320px;pointer-events:none}
-.toast.tok{border-color:rgba(0,245,200,.35)}
-.toast.terr{border-color:rgba(255,77,109,.35)}
-.toast-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.toast.tok .toast-dot{background:var(--glow2)}
-.toast.terr .toast-dot{background:var(--danger)}
+.card-body  { padding: clamp(14px, 3vw, 22px); }
+.card-title { font-family: var(--font-h); font-size: clamp(.92rem, 2.5vw, 1.05rem); letter-spacing: .05em; }
+.card-sub   { font-size: .72rem; color: var(--muted); margin-top: 4px; }
+.card-stock-low { font-size: .68rem; color: var(--warn); margin-top: 6px; }
 
-.hidden{display:none!important}
+.card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 14px; gap: 10px; flex-wrap: wrap;
+}
+.card-price { font-family: var(--font-h); font-size: clamp(1.1rem, 3vw, 1.25rem); color: var(--glow); flex-shrink: 0; }
+
+/* ✅ TOUCH: add-to-cart button is always ≥ 44px height */
+.add-btn {
+  background: transparent;
+  border: 1px solid var(--border); color: var(--text);
+  padding: 0 18px; height: var(--touch); min-width: 110px;
+  font-family: var(--font-b); font-size: .72rem;
+  cursor: pointer; border-radius: 2px;
+  transition: all .25s;
+  flex-shrink: 0;
+}
+.add-btn:hover:not(:disabled), .add-btn.added {
+  background: var(--glow); border-color: var(--glow);
+  color: var(--bg); box-shadow: 0 0 20px rgba(0,200,255,.3);
+}
+.add-btn:disabled { opacity: .5; cursor: not-allowed; border-color: rgba(255,77,109,.3); color: var(--danger); }
+
+/* ════════════════════════════════════════════════════════════
+   PRODUCT VIEW MODAL  (bottom-sheet on mobile)
+   ════════════════════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(2,5,14,.9); backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  animation: fadeIn .2s ease;
+}
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 100%; max-width: 820px;
+  display: flex; overflow: hidden;
+  position: relative;
+  animation: slideUp .3s ease;
+  max-height: 90svh;
+}
+.modal-img-side {
+  width: 360px; flex-shrink: 0;
+  position: relative; overflow: hidden; background: var(--bg3);
+}
+.modal-img-side img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.modal-img-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at center, rgba(0,200,255,.08) 0%, var(--bg3) 75%);
+  font-size: 6rem;
+}
+.modal-right { padding: 36px 32px; flex: 1; overflow-y: auto; }
+.modal-eyebrow { font-size: .6rem; letter-spacing: .28em; text-transform: uppercase; color: var(--glow); }
+.modal-title  { font-family: var(--font-h); font-size: clamp(1.3rem, 4vw, 1.7rem); margin: 10px 0 4px; line-height: 1.2; }
+.modal-sub    { color: var(--muted); font-size: .78rem; }
+.modal-divider { width: 40px; height: 1px; background: var(--glow); margin: 18px 0; opacity: .4; }
+.modal-desc   { font-size: .86rem; line-height: 1.8; color: var(--muted); font-weight: 300; }
+.modal-price  { font-family: var(--font-h); font-size: clamp(1.5rem, 4vw, 2rem); color: var(--glow); margin: 18px 0 4px; }
+.modal-stock-info { font-size: .75rem; color: var(--muted); margin-bottom: 16px; }
+
+/* ✅ TOUCH: modal add button ≥ 48px */
+.modal-add {
+  width: 100%; height: var(--touch);
+  background: transparent;
+  border: 1px solid var(--glow); color: var(--glow);
+  font-family: var(--font-b); font-size: .8rem;
+  cursor: pointer; border-radius: 2px; transition: all .3s;
+}
+.modal-add:hover:not(:disabled) { background: var(--glow); color: var(--bg); box-shadow: 0 0 30px rgba(0,200,255,.3); }
+.modal-add.added  { background: var(--glow); color: var(--bg); }
+.modal-add:disabled { opacity: .5; cursor: not-allowed; border-color: var(--danger); color: var(--danger); }
+
+/* ✅ TOUCH: close button ≥ 44×44px */
+.modal-close {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(3,6,15,.75); border: 1px solid var(--border);
+  border-radius: 50%; width: 40px; height: 40px;
+  color: var(--muted); font-size: 1rem;
+  cursor: pointer; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(6px); transition: all .2s;
+}
+.modal-close:hover { color: var(--text); border-color: var(--glow); }
+
+/* ════════════════════════════════════════════════════════════
+   CART DRAWER
+   ════════════════════════════════════════════════════════════ */
+.cart-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(2,5,14,.7); backdrop-filter: blur(6px);
+  animation: fadeIn .2s ease;
+}
+.cart-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(420px, 100vw);
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  z-index: 301;
+  display: flex; flex-direction: column;
+  animation: slideLeft .3s ease;
+}
+.cart-head {
+  padding: 0 24px; height: 64px;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-shrink: 0;
+}
+.cart-head-title { font-family: var(--font-h); font-size: 1rem; letter-spacing: .08em; }
+/* ✅ TOUCH: close button */
+.close-btn {
+  background: none; border: none; color: var(--muted);
+  font-size: 1.4rem; cursor: pointer;
+  width: var(--touch); height: var(--touch);
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 2px; transition: color .2s;
+}
+.close-btn:hover { color: var(--text); }
+
+.cart-items { flex: 1; overflow-y: auto; padding: 16px 20px; }
+.cart-empty {
+  text-align: center; color: var(--muted);
+  font-size: .85rem; margin-top: 60px;
+  font-style: italic; line-height: 1.8;
+}
+.cart-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.cart-item-thumb {
+  width: 56px; height: 56px; border-radius: 4px;
+  flex-shrink: 0; overflow: hidden;
+  border: 1px solid var(--border); background: var(--bg3);
+}
+.cart-item-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cart-item-thumb-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+}
+.cart-item-info { flex: 1; min-width: 0; }
+.cart-item-title {
+  font-size: .82rem; font-family: var(--font-h); letter-spacing: .04em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cart-item-price { color: var(--glow); font-size: .82rem; margin-top: 4px; }
+.cart-qty  { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+/* ✅ TOUCH: qty buttons 40×40 */
+.qty-btn {
+  width: 40px; height: 40px;
+  background: rgba(0,200,255,.08);
+  border: 1px solid var(--border); color: var(--text);
+  font-size: 1rem; cursor: pointer; border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.qty-btn:hover { border-color: var(--glow); color: var(--glow); }
+.qty-num { font-size: .85rem; min-width: 20px; text-align: center; }
+/* ✅ TOUCH: remove button */
+.remove-btn {
+  background: none; border: none; color: var(--muted);
+  cursor: pointer; font-size: 1.1rem;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 2px; transition: color .2s; flex-shrink: 0;
+}
+.remove-btn:hover { color: var(--danger); }
+
+.cart-foot {
+  padding: 20px 24px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.cart-total  { display: flex; justify-content: space-between; margin-bottom: 16px; }
+.cart-total-label { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.cart-total-val   { font-family: var(--font-h); font-size: 1.4rem; color: var(--glow); }
+/* ✅ TOUCH: checkout CTA ≥ 52px */
+.checkout-btn {
+  width: 100%; height: 52px;
+  background: linear-gradient(135deg, var(--glow) 0%, var(--glow2) 100%);
+  border: none; color: var(--bg);
+  font-family: var(--font-b); font-size: .85rem; font-weight: 700;
+  cursor: pointer; border-radius: 4px;
+  transition: all .3s;
+}
+.checkout-btn:hover  { box-shadow: 0 0 40px rgba(0,200,255,.4); transform: translateY(-1px); }
+.checkout-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+/* ════════════════════════════════════════════════════════════
+   CHECKOUT PAGE
+   ════════════════════════════════════════════════════════════ */
+.checkout-page {
+  min-height: 100svh;
+  padding: 96px var(--pad-page) 80px;
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 48px;
+  align-items: start;
+}
+.checkout-form-section h2 { font-family: var(--font-h); font-size: clamp(1.3rem, 4vw, 1.6rem); letter-spacing: .06em; margin-bottom: 8px; }
+.checkout-sub { color: var(--muted); font-size: .8rem; margin-bottom: 36px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-row.full { grid-template-columns: 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+
+/* ✅ TOUCH: inputs ≥ 48px height */
+.form-input {
+  background: rgba(0,200,255,.04);
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 0 16px; height: 48px;
+  color: var(--text); font-family: var(--font-b); font-size: .9rem;
+  outline: none; width: 100%;
+  transition: border-color .2s, box-shadow .2s;
+  /* ✅ MOBILE: prevent zoom on focus in iOS */
+  font-size: max(.9rem, 16px);
+}
+.form-input:focus { border-color: rgba(0,200,255,.4); box-shadow: 0 0 15px rgba(0,200,255,.08); }
+.form-input::placeholder { color: rgba(200,230,255,.22); }
+select.form-input option { background: var(--bg2); }
+textarea.form-input { resize: vertical; min-height: 80px; height: auto; padding: 12px 16px; }
+
+.form-section-title { font-size: .6rem; letter-spacing: .22em; text-transform: uppercase; color: var(--glow); margin: 24px 0 14px; }
+
+.payment-box {
+  background: rgba(0,200,255,.04);
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 16px 20px; margin-top: 8px;
+}
+.payment-label { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.payment-radio { accent-color: var(--glow); width: 18px; height: 18px; flex-shrink: 0; }
+.payment-name  { font-size: .88rem; }
+.payment-icons { display: flex; gap: 8px; margin-left: auto; }
+.payment-icon  { background: rgba(255,255,255,.08); border: 1px solid var(--border); border-radius: 3px; padding: 3px 8px; font-size: .62rem; color: var(--muted); }
+
+/* ✅ TOUCH: submit button ≥ 52px */
+.submit-btn {
+  width: 100%; margin-top: 24px; height: 52px;
+  background: linear-gradient(135deg, var(--glow) 0%, var(--glow2) 100%);
+  border: none; color: var(--bg);
+  font-family: var(--font-b); font-size: .85rem; font-weight: 700;
+  cursor: pointer; border-radius: 4px; transition: all .3s;
+}
+.submit-btn:hover { box-shadow: 0 0 40px rgba(0,200,255,.4); transform: translateY(-1px); }
+
+.back-link {
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 14px; height: var(--touch);
+  background: none; border: none; color: var(--muted);
+  font-family: var(--font-b); font-size: .78rem;
+  cursor: pointer; transition: color .2s; width: 100%;
+}
+.back-link:hover { color: var(--glow); }
+
+/* Order summary sidebar */
+.order-summary {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 6px; padding: 24px; position: sticky; top: 88px;
+}
+.order-summary h3 { font-family: var(--font-h); font-size: 1rem; letter-spacing: .08em; margin-bottom: 20px; }
+.summary-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.summary-thumb {
+  width: 44px; height: 44px; border-radius: 3px;
+  overflow: hidden; flex-shrink: 0;
+  background: var(--bg3); border: 1px solid var(--border);
+}
+.summary-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.summary-thumb-ph  { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.summary-info      { flex: 1; font-size: .8rem; min-width: 0; }
+.summary-info-sub  { font-size: .7rem; color: var(--muted); margin-top: 2px; }
+.summary-item-price { font-size: .82rem; color: var(--muted); flex-shrink: 0; }
+.sum-line   { display: flex; justify-content: space-between; font-size: .73rem; color: var(--muted); padding: 5px 0; }
+.sum-total  { display: flex; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+.sum-total-label { font-size: .73rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.sum-total-val   { font-family: var(--font-h); font-size: 1.3rem; color: var(--glow); }
+.secure-note     { margin-top: 18px; padding: 12px 14px; background: rgba(0,200,255,.05); border: 1px solid var(--border); border-radius: 3px; font-size: .7rem; color: var(--muted); line-height: 1.7; }
+
+/* ════════════════════════════════════════════════════════════
+   SUCCESS PAGE
+   ════════════════════════════════════════════════════════════ */
+.success-page {
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 100px var(--pad-page) 80px;
+  text-align: center; position: relative; z-index: 1;
+}
+.success-icon {
+  width: 90px; height: 90px; border-radius: 50%;
+  background: rgba(0,200,255,.1); border: 2px solid var(--glow);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; margin: 0 auto 28px;
+  box-shadow: 0 0 50px rgba(0,200,255,.25);
+  animation: pop .5s cubic-bezier(.175,.885,.32,1.275) both;
+}
+@keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.success-title { font-family: var(--font-h); font-size: clamp(1.6rem, 5vw, 3rem); margin-bottom: 12px; }
+.success-msg   { color: var(--muted); font-size: clamp(.85rem, 2.5vw, .95rem); line-height: 1.8; max-width: 480px; font-weight: 300; }
+.success-id    { margin: 24px 0; background: rgba(0,200,255,.06); border: 1px solid var(--border); border-radius: 3px; padding: 12px 24px; font-size: .72rem; letter-spacing: .14em; color: var(--muted); }
+.success-detail {
+  background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+  padding: 20px 24px; margin: 10px 0 32px;
+  text-align: left; width: 100%; max-width: 480px;
+}
+.detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: .82rem; }
+.detail-row:last-child { border-bottom: none; }
+.detail-label { color: var(--muted); flex-shrink: 0; margin-right: 12px; }
+.detail-val   { color: var(--text); font-weight: 500; text-align: right; word-break: break-word; }
+/* ✅ TOUCH: back button ≥ 48px */
+.back-btn {
+  background: transparent; border: 1px solid var(--border); color: var(--muted);
+  padding: 0 32px; height: var(--touch);
+  font-family: var(--font-b); font-size: .78rem;
+  cursor: pointer; border-radius: 4px; transition: all .25s;
+  display: inline-flex; align-items: center;
+}
+.back-btn:hover { border-color: var(--glow); color: var(--glow); }
+
+/* ════════════════════════════════════════════════════════════
+   PROCESSING OVERLAY
+   ════════════════════════════════════════════════════════════ */
+.processing {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(3,6,15,.92); backdrop-filter: blur(10px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+}
+.spinner {
+  width: 52px; height: 52px;
+  border: 2px solid rgba(0,200,255,.15); border-top-color: var(--glow);
+  border-radius: 50%; animation: spin .8s linear infinite;
+}
+.processing-text { font-size: .85rem; letter-spacing: .12em; color: var(--muted); }
+
+/* ════════════════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 36px var(--pad-page);
+  display: flex; justify-content: space-between; align-items: center;
+  position: relative; z-index: 1;
+  color: var(--muted); font-size: .73rem;
+  gap: 16px; flex-wrap: wrap;
+}
+.footer-brand { font-family: var(--font-h); font-size: .9rem; color: var(--text); margin-bottom: 4px; }
+
+/* ════════════════════════════════════════════════════════════
+   ADMIN LOGIN
+   ════════════════════════════════════════════════════════════ */
+.admin-login-page {
+  min-height: 100svh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1; padding: var(--pad-page);
+}
+.admin-login-box {
+  width: 100%; max-width: 420px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: clamp(28px, 6vw, 48px);
+}
+.admin-login-icon  { font-size: 2.5rem; text-align: center; margin-bottom: 20px; }
+.admin-login-title { font-family: var(--font-h); font-size: clamp(1.2rem, 4vw, 1.5rem); text-align: center; margin-bottom: 6px; letter-spacing: .08em; }
+.admin-login-sub   { text-align: center; color: var(--muted); font-size: .78rem; margin-bottom: 32px; }
+.admin-err         { color: var(--danger); font-size: .78rem; text-align: center; margin-bottom: 12px; min-height: 20px; }
+/* ✅ TOUCH: login button ≥ 52px */
+.login-btn {
+  width: 100%; margin-top: 20px; height: 52px;
+  background: linear-gradient(135deg, var(--warn) 0%, #c47800 100%);
+  border: none; color: #000;
+  font-family: var(--font-b); font-size: .85rem; font-weight: 700;
+  cursor: pointer; border-radius: 4px; transition: all .3s;
+}
+.login-btn:hover { box-shadow: 0 0 30px rgba(245,166,35,.4); transform: translateY(-1px); }
+
+/* ════════════════════════════════════════════════════════════
+   ADMIN DASHBOARD
+   ════════════════════════════════════════════════════════════ */
+.admin-layout { display: flex; min-height: 100svh; position: relative; z-index: 1; }
+
+/* Desktop sidebar */
+.admin-sidebar {
+  width: 240px; flex-shrink: 0;
+  background: rgba(4,10,24,.97); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 88px 0 24px;
+  position: fixed; top: 0; bottom: 0; left: 0; z-index: 50;
+  overflow-y: auto; transition: transform .3s ease;
+}
+.admin-nav-label {
+  font-size: .56rem; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--muted); padding: 0 24px; margin: 20px 0 8px;
+}
+/* ✅ TOUCH: nav items ≥ 48px */
+.admin-nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 24px; height: 48px;
+  font-size: .82rem; cursor: pointer;
+  border-left: 2px solid transparent; color: var(--muted);
+  transition: all .2s; white-space: nowrap;
+}
+.admin-nav-item:hover  { color: var(--text); background: rgba(0,200,255,.05); }
+.admin-nav-item.active { color: var(--glow); border-left-color: var(--glow); background: rgba(0,200,255,.07); }
+.admin-nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+/* Sidebar overlay (mobile) */
+.sidebar-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 49;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(4px);
+  animation: fadeIn .2s ease;
+}
+.sidebar-overlay.open { display: block; }
+
+.admin-content {
+  margin-left: 240px; flex: 1;
+  padding: 96px 40px 60px;
+  min-height: 100svh;
+}
+
+.admin-page-title { font-family: var(--font-h); font-size: clamp(1.3rem, 4vw, 1.6rem); letter-spacing: .06em; margin-bottom: 6px; }
+.admin-page-sub   { color: var(--muted); font-size: .8rem; margin-bottom: 32px; }
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px; margin-bottom: 40px;
+}
+.stat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 6px; padding: 20px; position: relative; overflow: hidden;
+}
+.stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.sc-blue::before  { background: var(--glow); }
+.sc-green::before { background: var(--glow2); }
+.sc-warn::before  { background: var(--warn); }
+.sc-red::before   { background: var(--danger); }
+.stat-val   { font-family: var(--font-h); font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 6px; }
+.stat-label { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.sc-blue .stat-val  { color: var(--glow); }
+.sc-green .stat-val { color: var(--glow2); }
+.sc-warn .stat-val  { color: var(--warn); }
+.sc-red .stat-val   { color: var(--danger); }
+
+/* Tables */
+.admin-table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 28px; }
+.admin-table-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 20px; border-bottom: 1px solid var(--border);
+  flex-wrap: wrap; gap: 10px;
+}
+.admin-table-title { font-family: var(--font-h); font-size: .95rem; letter-spacing: .06em; }
+/* ✅ TOUCH: add button */
+.admin-add-btn {
+  background: transparent; border: 1px solid var(--glow); color: var(--glow);
+  padding: 0 18px; height: 40px;
+  font-family: var(--font-b); font-size: .72rem;
+  cursor: pointer; border-radius: 2px; transition: all .25s;
+}
+.admin-add-btn:hover { background: var(--glow); color: var(--bg); }
+
+.tbl-wrap   { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table       { width: 100%; border-collapse: collapse; min-width: 480px; }
+th          { text-align: left; padding: 10px 16px; font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 400; white-space: nowrap; }
+td          { padding: 12px 16px; font-size: .82rem; border-bottom: 1px solid rgba(0,200,255,.06); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(0,200,255,.025); }
+
+.badge     { display: inline-block; padding: 3px 10px; border-radius: 2px; font-size: .63rem; letter-spacing: .08em; white-space: nowrap; }
+.b-ok      { background: rgba(0,245,200,.12); color: var(--glow2); border: 1px solid rgba(0,245,200,.25); }
+.b-low     { background: rgba(245,166,35,.12); color: var(--warn);  border: 1px solid rgba(245,166,35,.25); }
+.b-oos     { background: rgba(255,77,109,.12); color: var(--danger); border: 1px solid rgba(255,77,109,.25); }
+.b-paid    { background: rgba(0,245,200,.12); color: var(--glow2); border: 1px solid rgba(0,245,200,.25); }
+
+.tbl-actions { display: flex; gap: 8px; }
+/* ✅ TOUCH: table action buttons */
+.tbl-btn {
+  background: none; border: 1px solid var(--border); color: var(--muted);
+  padding: 0 12px; height: 36px;
+  font-size: .68rem; cursor: pointer; border-radius: 2px;
+  transition: all .2s; font-family: var(--font-b);
+  white-space: nowrap;
+}
+.tbl-btn.edit:hover { border-color: var(--glow);   color: var(--glow); }
+.tbl-btn.del:hover  { border-color: var(--danger);  color: var(--danger); }
+.tbl-img    { width: 46px; height: 46px; border-radius: 3px; overflow: hidden; border: 1px solid var(--border); background: var(--bg3); flex-shrink: 0; }
+.tbl-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tbl-img-ph  { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+
+/* ════════════════════════════════════════════════════════════
+   PRODUCT FORM MODAL
+   ════════════════════════════════════════════════════════════ */
+.form-modal-overlay {
+  position: fixed; inset: 0; z-index: 400;
+  background: rgba(2,5,14,.93); backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--pad-page);
+  animation: fadeIn .2s ease;
+}
+.form-modal {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; width: 100%; max-width: 580px;
+  max-height: 92svh; overflow-y: auto;
+  padding: clamp(24px, 5vw, 40px);
+  position: relative; animation: slideUp .3s ease;
+}
+.form-modal h3      { font-family: var(--font-h); font-size: clamp(1.1rem, 3vw, 1.3rem); letter-spacing: .06em; margin-bottom: 6px; }
+.form-modal-sub     { color: var(--muted); font-size: .78rem; margin-bottom: 28px; }
+.form-modal-close   { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--muted); font-size: 1.3rem; cursor: pointer; transition: color .2s; width: var(--touch); height: var(--touch); display: flex; align-items: center; justify-content: center; }
+.form-modal-close:hover { color: var(--text); }
+
+/* Image upload */
+.img-upload-area {
+  border: 2px dashed var(--border); border-radius: 6px;
+  padding: 28px 16px; text-align: center;
+  cursor: pointer; transition: all .25s; position: relative; overflow: hidden;
+  background: rgba(0,200,255,.02);
+}
+.img-upload-area:hover, .img-upload-area.drag { border-color: var(--glow); background: rgba(0,200,255,.06); }
+.img-upload-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.img-upload-icon  { font-size: 2.2rem; margin-bottom: 8px; display: block; }
+.img-upload-label { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+.img-upload-label strong { color: var(--glow); }
+.img-preview-wrap { position: relative; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+.img-preview-wrap img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.img-preview-remove { position: absolute; top: 8px; right: 8px; background: rgba(255,77,109,.85); border: none; border-radius: 50%; width: 32px; height: 32px; color: #fff; font-size: .9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s; }
+.img-preview-remove:hover { background: var(--danger); transform: scale(1.1); }
+.img-preview-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(3,6,15,.8), transparent); padding: 10px 12px 6px; font-size: .7rem; color: var(--muted); }
+
+.color-picker { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+.color-opt    { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all .2s; }
+.color-opt:hover, .color-opt.sel { border-color: #fff; transform: scale(1.15); }
+
+.form-modal-actions { display: flex; gap: 12px; margin-top: 24px; }
+.modal-save-btn {
+  flex: 1; height: 48px;
+  background: linear-gradient(135deg, var(--glow) 0%, var(--glow2) 100%);
+  border: none; color: var(--bg);
+  font-family: var(--font-b); font-size: .82rem; font-weight: 700;
+  cursor: pointer; border-radius: 4px; transition: all .3s;
+}
+.modal-save-btn:hover { box-shadow: 0 0 25px rgba(0,200,255,.35); }
+.modal-cancel-btn {
+  height: 48px; padding: 0 24px;
+  background: transparent; border: 1px solid var(--border); color: var(--muted);
+  font-family: var(--font-b); font-size: .8rem;
+  cursor: pointer; border-radius: 4px; transition: all .2s;
+}
+.modal-cancel-btn:hover { border-color: var(--text); color: var(--text); }
+
+/* Confirm delete */
+.confirm-box {
+  background: var(--bg2); border: 1px solid rgba(255,77,109,.3);
+  border-radius: 8px; width: 100%; max-width: 380px;
+  padding: 32px 28px; text-align: center; animation: slideUp .3s ease;
+}
+.confirm-box h4 { font-family: var(--font-h); font-size: 1.1rem; margin-bottom: 10px; }
+.confirm-box p  { color: var(--muted); font-size: .82rem; line-height: 1.7; margin-bottom: 24px; }
+.confirm-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.confirm-del-btn {
+  height: 44px; padding: 0 28px;
+  background: var(--danger); border: none; color: #fff;
+  font-family: var(--font-b); font-size: .8rem; cursor: pointer; border-radius: 4px; transition: all .2s;
+}
+.confirm-del-btn:hover { box-shadow: 0 0 20px rgba(255,77,109,.4); }
+.confirm-cancel-btn {
+  height: 44px; padding: 0 24px;
+  background: transparent; border: 1px solid var(--border); color: var(--muted);
+  font-family: var(--font-b); font-size: .8rem; cursor: pointer; border-radius: 4px; transition: all .2s;
+}
+.confirm-cancel-btn:hover { border-color: var(--text); color: var(--text); }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 600;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 14px 20px;
+  font-size: .82rem; display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.5);
+  animation: slideUp .3s ease; max-width: 320px; pointer-events: none;
+}
+.toast.tok  { border-color: rgba(0,245,200,.35); }
+.toast.terr { border-color: rgba(255,77,109,.35); }
+.toast-dot  { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.toast.tok  .toast-dot { background: var(--glow2); }
+.toast.terr .toast-dot { background: var(--danger); }
+
+
+/* ════════════════════════════════════════════════════════════
+   MEDIA QUERIES
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Tablet: 601px – 900px ── */
+@media (max-width: 900px) {
+  /* Checkout: sidebar drops below form */
+  .checkout-page { grid-template-columns: 1fr; gap: 0; }
+  .order-summary { position: static; margin-top: 32px; }
+
+  /* Admin: sidebar collapses to icons only */
+  .admin-sidebar { width: 60px; }
+  .admin-nav-label,
+  .admin-nav-item .nav-text { display: none; }
+  .admin-content { margin-left: 60px; padding: 88px 24px 48px; }
+  .stats-grid    { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Mobile: ≤ 600px ── */
+@media (max-width: 600px) {
+
+  /* HEADER: hide desktop buttons, show hamburger */
+  .header          { height: 60px; padding: 0 16px; }
+  .logo-icon       { width: 36px; height: 36px; font-size: 18px; }
+  .logo-text       { font-size: .9rem; letter-spacing: .08em; }
+  .logo-sub        { display: none; }
+  .header-right    { display: none; }   /* hidden — replaced by hamburger */
+  .hamburger       { display: flex; }   /* ✅ show hamburger */
+
+  /* HERO */
+  .hero            { padding: 80px 16px 48px; }
+  .hero-eyebrow    { font-size: .58rem; letter-spacing: .18em; margin-bottom: 16px; }
+  .hero-cta        { width: 100%; justify-content: center; }
+
+  /* CATALOG */
+  .catalog         { padding: 48px 16px 64px; }
+  .section-header  { margin-bottom: 32px; }
+  .grid            { grid-template-columns: 1fr; gap: 16px; } /* ✅ single column */
+
+  /* CARD: make add-btn full width on phones */
+  .card-footer     { flex-direction: column; align-items: stretch; }
+  .card-price      { font-size: 1.15rem; }
+  .add-btn         { min-width: unset; width: 100%; justify-content: center; }
+
+  /* PRODUCT MODAL: bottom sheet */
+  .modal-overlay   { padding: 0; align-items: flex-end; }
+  .modal           {
+    flex-direction: column;
+    border-radius: 16px 16px 0 0;
+    max-height: 94svh;
+    max-width: 100%;
+  }
+  .modal-img-side  { width: 100%; height: 200px; }
+  .modal-right     { padding: 20px 20px 28px; }
+  .modal-title     { font-size: 1.3rem; }
+
+  /* CART: full width */
+  .cart-drawer     { width: 100vw; border-left: none; border-top: 1px solid var(--border); }
+  .cart-head       { padding: 0 16px; }
+  .cart-items      { padding: 12px 16px; }
+  .cart-foot       { padding: 16px; }
+
+  /* CHECKOUT */
+  .checkout-page           { padding: 76px 16px 48px; }
+  .checkout-form-section h2 { font-size: 1.3rem; }
+  .checkout-sub             { margin-bottom: 24px; }
+  .form-row                 { grid-template-columns: 1fr; } /* all rows stack */
+  .form-row.keep-two        { grid-template-columns: 1fr 1fr; } /* expiry/cvv stay side-by-side */
+  .payment-icons            { display: none; }
+
+  /* SUCCESS */
+  .success-page   { padding: 80px 16px 60px; }
+  .success-detail { padding: 16px 18px; }
+  .success-id     { padding: 10px 16px; }
+
+  /* ADMIN LOGIN */
+  .admin-login-box { padding: 28px 20px; }
+
+  /* ADMIN DASHBOARD: sidebar becomes bottom tab bar */
+  .admin-sidebar {
+    width: 100%;
+    height: 56px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    top: auto; bottom: 0; left: 0; right: 0;
+    padding: 0;
+    border-right: none;
+    border-top: 1px solid var(--border);
+    z-index: 98;
+    overflow: visible;
+  }
+  /* Show sidebar on mobile (override transform) */
+  .admin-sidebar.sidebar-closed { transform: none; }
+  .admin-nav-label { display: none; }
+  .admin-nav-item {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    height: 100%;
+    padding: 0;
+    border-left: none;
+    border-top: 2px solid transparent;
+    font-size: .58rem;
+  }
+  .admin-nav-item .nav-text { display: block; font-size: .58rem; }
+  .admin-nav-item.active { border-top-color: var(--glow); border-left-color: transparent; background: transparent; }
+  .admin-nav-icon { font-size: 1.1rem; width: auto; }
+
+  /* Content: push above bottom tab bar */
+  .admin-content { margin-left: 0; padding: 80px 16px 80px; }
+
+  /* Stats: 2 columns */
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-card  { padding: 16px; }
+  .admin-table-head { flex-direction: column; align-items: flex-start; }
+
+  /* Product form modal: bottom sheet */
+  .form-modal-overlay { padding: 0; align-items: flex-end; }
+  .form-modal         { border-radius: 16px 16px 0 0; max-height: 92svh; max-width: 100%; padding: 24px 16px 32px; }
+  .form-modal .form-row { grid-template-columns: 1fr; }
+  .form-modal-actions { flex-direction: column; }
+  .modal-save-btn, .modal-cancel-btn { width: 100%; }
+
+  /* FOOTER */
+  .footer { flex-direction: column; text-align: center; padding: 28px 16px; }
+  .footer > div:last-child { text-align: center; }
+
+  /* TOAST: full width above content */
+  .toast { bottom: 70px; left: 12px; right: 12px; max-width: none; }
+}
+
+/* ── Small phones: ≤ 380px ── */
+@media (max-width: 380px) {
+  .hero-title   { font-size: 2rem; }
+  .logo-text    { font-size: .82rem; }
+  .stats-grid   { grid-template-columns: 1fr; }
+  .form-row.keep-two { grid-template-columns: 1fr; } /* even expiry/cvv stack on tiny screens */
+}
+
+/* ── Extra touch: active state feedback on mobile ── */
+@media (hover: none) {
+  .add-btn:active, .cart-btn:active, .submit-btn:active, .checkout-btn:active {
+    opacity: .75;
+    transform: scale(.98);
+  }
+}
 </style>
 </head>
 <body>
 <div class="ambient"></div>
 
-<!-- ═══ HEADER ═══ -->
+<!-- ════════════ HEADER ════════════ -->
 <header class="header">
   <div class="logo-wrap" onclick="goHome()">
-    <div class="logo-icon"><img src="logo2.png" alt=""></div>
+    <div class="logo-icon">❄️</div>
     <div>
       <div class="logo-text">FROZEN REALM</div>
       <div class="logo-sub">ხელნაკეთი ფისოვანი ხელოვნება</div>
     </div>
   </div>
-  <div class="header-right">
+
+  <!-- Desktop buttons -->
+  <div class="header-right" id="header-right">
     <button class="admin-link" id="admin-header-btn" onclick="showAdminLogin()">⚙ ადმინი</button>
     <button class="cart-btn" id="cart-header-btn" onclick="openCart()">
       🛒 კალათა
       <span class="cart-badge hidden" id="cart-badge">0</span>
     </button>
   </div>
+
+  <!-- Hamburger (mobile only) -->
+  <button class="hamburger" id="hamburger" aria-label="მენიუ" aria-expanded="false" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </header>
 
-<!-- ═══ HOME ═══ -->
+<!-- Mobile menu dropdown -->
+<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="მობილური მენიუ">
+  <button class="mobile-menu-item" onclick="mobileCart()">
+    <span class="m-icon">🛒</span> კალათა
+    <span class="mobile-cart-count hidden" id="mobile-cart-count">0</span>
+  </button>
+  <div class="mobile-menu-divider"></div>
+  <button class="mobile-menu-item" onclick="mobileAdmin()">
+    <span class="m-icon">⚙</span> ადმინი
+  </button>
+</nav>
+
+<!-- ════════════ HOME PAGE ════════════ -->
 <div id="page-home">
   <section class="hero">
-    <div class="hero-eyebrow">✦ ხელნაკეთი · უნიკალური · მიწოდება მთელ საქართველოში</div>
+    <div class="hero-eyebrow">✦ ხელნაკეთი · უნიკალური · მიწოდება მთელ მსოფლიოში</div>
     <h1 class="hero-title">Frozen Realm</h1>
     <p class="hero-tagline">„სინათლეში გაყინული სამყაროები"</p>
     <div class="hero-divider"></div>
-    <button class="hero-cta" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">კოლექციის ნახვა ↓</button>
+    <button class="hero-cta" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">
+      კოლექციის ნახვა ↓
+    </button>
   </section>
+
   <section class="catalog" id="catalog">
     <div class="section-header">
       <div class="section-label">✦ კოლექცია</div>
@@ -369,35 +1200,45 @@ tr:hover td{background:rgba(0,200,255,.025)}
     </div>
     <div class="grid" id="product-grid"></div>
   </section>
+
   <footer class="footer">
-    <div><div class="footer-brand">Frozen Realm</div><div>© 2025 · ყველა ნივთი ხელნაკეთია თბილისში, საქართველო</div></div>
-    <div style="text-align:right"><div>frozenrealm@studio.ge</div><div style="margin-top:4px">უსაფრთხო გადახდა · უფასო მიწოდება</div></div>
+    <div>
+      <div class="footer-brand">Frozen Realm</div>
+      <div>© 2025 · ყველა ნივთი ხელნაკეთია თბილისში, საქართველო</div>
+    </div>
+    <div style="text-align:right">
+      <div>frozenrealm@studio.ge</div>
+      <div style="margin-top:4px">უსაფრთხო გადახდა · უფასო მიწოდება</div>
+    </div>
   </footer>
 </div>
 
-<!-- ═══ CHECKOUT ═══ -->
+<!-- ════════════ CHECKOUT ════════════ -->
 <div id="page-checkout" class="hidden">
   <div class="checkout-page">
     <div class="checkout-form-section">
       <h2>შეკვეთის გაფორმება</h2>
       <p class="checkout-sub">უსაფრთხო · დაშიფრული · სიყვარულით შექმნილი</p>
+
       <div class="form-section-title">საკონტაქტო ინფორმაცია</div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">სახელი *</label><input class="form-input" id="f-first" placeholder="ანა"></div>
-        <div class="form-group"><label class="form-label">გვარი *</label><input class="form-input" id="f-last" placeholder="გელაშვილი"></div>
+        <div class="form-group"><label class="form-label">სახელი *</label><input class="form-input" id="f-first" placeholder="ანა" autocomplete="given-name"></div>
+        <div class="form-group"><label class="form-label">გვარი *</label><input class="form-input" id="f-last" placeholder="გელაშვილი" autocomplete="family-name"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">ელ-ფოსტა *</label><input class="form-input" id="f-email" type="email" placeholder="you@email.com"></div>
-        <div class="form-group"><label class="form-label">ტელეფონი *</label><input class="form-input" id="f-phone" placeholder="+995 599 000 000"></div>
+        <div class="form-group"><label class="form-label">ელ-ფოსტა *</label><input class="form-input" id="f-email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email"></div>
+        <div class="form-group"><label class="form-label">ტელეფონი *</label><input class="form-input" id="f-phone" type="tel" placeholder="+995 599 000 000" autocomplete="tel" inputmode="tel"></div>
       </div>
+
       <div class="form-section-title">მიწოდების მისამართი</div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">ქალაქი *</label><input class="form-input" id="f-city" placeholder="თბილისი"></div>
+        <div class="form-group"><label class="form-label">ქალაქი *</label><input class="form-input" id="f-city" placeholder="თბილისი" autocomplete="address-level2"></div>
         <div class="form-group"><label class="form-label">ბინა / სართული</label><input class="form-input" id="f-apt" placeholder="ბინა 4ბ"></div>
       </div>
       <div class="form-row full">
-        <div class="form-group"><label class="form-label">ქუჩა *</label><input class="form-input" id="f-street" placeholder="რუსთაველის გამზ. 14"></div>
+        <div class="form-group"><label class="form-label">ქუჩა *</label><input class="form-input" id="f-street" placeholder="რუსთაველის გამზ. 14" autocomplete="street-address"></div>
       </div>
+
       <div class="form-section-title">გადახდის მონაცემები</div>
       <div class="payment-box">
         <label class="payment-label">
@@ -407,15 +1248,21 @@ tr:hover td{background:rgba(0,200,255,.025)}
         </label>
       </div>
       <div style="margin-top:16px">
-        <div class="form-row full"><div class="form-group"><label class="form-label">ბარათის ნომერი *</label><input class="form-input" id="f-card" placeholder="4242 4242 4242 4242" maxlength="19"></div></div>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">ვადა *</label><input class="form-input" id="f-expiry" placeholder="თთ/წწ" maxlength="5"></div>
-          <div class="form-group"><label class="form-label">CVV *</label><input class="form-input" id="f-cvv" placeholder="•••" maxlength="4" type="password"></div>
+        <div class="form-row full">
+          <div class="form-group"><label class="form-label">ბარათის ნომერი *</label><input class="form-input" id="f-card" placeholder="4242 4242 4242 4242" maxlength="19" inputmode="numeric" autocomplete="cc-number"></div>
+        </div>
+        <!-- keep-two: expiry+cvv side by side even on mobile -->
+        <div class="form-row keep-two">
+          <div class="form-group"><label class="form-label">ვადა *</label><input class="form-input" id="f-expiry" placeholder="თთ/წწ" maxlength="5" inputmode="numeric" autocomplete="cc-exp"></div>
+          <div class="form-group"><label class="form-label">CVV *</label><input class="form-input" id="f-cvv" placeholder="•••" maxlength="4" type="password" autocomplete="cc-csc" inputmode="numeric"></div>
         </div>
       </div>
+
       <button class="submit-btn" onclick="submitOrder()">გადახდა — შეკვეთის დასრულება</button>
       <button class="back-link" onclick="showPage('home')">← მაღაზიაში დაბრუნება</button>
     </div>
+
+    <!-- Order summary -->
     <div class="order-summary">
       <h3>შეკვეთის ჯამი</h3>
       <div id="summary-items"></div>
@@ -423,13 +1270,16 @@ tr:hover td{background:rgba(0,200,255,.025)}
         <div class="sum-line"><span>შუალედური ჯამი</span><span id="sum-subtotal">₾0.00</span></div>
         <div class="sum-line"><span>მიწოდება</span><span style="color:var(--glow2)">უფასო</span></div>
       </div>
-      <div class="sum-total"><span class="sum-total-label">სულ</span><span class="sum-total-val" id="sum-total">₾0.00</span></div>
-      <div style="margin-top:20px;padding:12px 16px;background:rgba(0,200,255,.05);border:1px solid var(--border);border-radius:3px;font-size:.7rem;color:var(--muted);line-height:1.7">🔒 გადახდა დაცულია 256-ბიტიანი SSL დაშიფვრით.</div>
+      <div class="sum-total">
+        <span class="sum-total-label">სულ</span>
+        <span class="sum-total-val" id="sum-total">₾0.00</span>
+      </div>
+      <div class="secure-note">🔒 გადახდა დაცულია 256-ბიტიანი SSL დაშიფვრით.</div>
     </div>
   </div>
 </div>
 
-<!-- ═══ SUCCESS ═══ -->
+<!-- ════════════ SUCCESS ════════════ -->
 <div id="page-success" class="hidden">
   <div class="success-page">
     <div class="success-icon">✓</div>
@@ -441,7 +1291,7 @@ tr:hover td{background:rgba(0,200,255,.025)}
   </div>
 </div>
 
-<!-- ═══ ADMIN LOGIN ═══ -->
+<!-- ════════════ ADMIN LOGIN ════════════ -->
 <div id="page-admin-login" class="hidden">
   <div class="admin-login-page">
     <div class="admin-login-box">
@@ -449,43 +1299,59 @@ tr:hover td{background:rgba(0,200,255,.025)}
       <h2 class="admin-login-title">ადმინ პანელი</h2>
       <p class="admin-login-sub">შედით სამართავ პანელში</p>
       <div class="admin-err" id="login-err"></div>
-      <div class="form-group" style="margin-bottom:16px">
+      <div class="form-group" style="margin-bottom:14px">
         <label class="form-label">მომხმარებელი</label>
-        <input class="form-input" id="admin-user" placeholder="admin" onkeydown="if(event.key==='Enter')doLogin()">
+        <input class="form-input" id="admin-user" placeholder="admin" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()">
       </div>
       <div class="form-group">
         <label class="form-label">პაროლი</label>
-        <input class="form-input" type="password" id="admin-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+        <input class="form-input" type="password" id="admin-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
       </div>
       <button class="login-btn" onclick="doLogin()">შესვლა →</button>
-      <button class="back-link" style="margin-top:16px" onclick="showPage('home')">← მაღაზიაში დაბრუნება</button>
+      <button class="back-link" onclick="showPage('home')">← მაღაზიაში დაბრუნება</button>
     </div>
   </div>
 </div>
 
-<!-- ═══ ADMIN DASHBOARD ═══ -->
+<!-- ════════════ ADMIN DASHBOARD ════════════ -->
 <div id="page-admin" class="hidden">
+  <!-- Sidebar overlay (closes sidebar on mobile tap-outside) -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
   <div class="admin-layout">
-    <aside class="admin-sidebar">
+    <aside class="admin-sidebar" id="admin-sidebar">
       <div class="admin-nav-label">მენიუ</div>
-      <div class="admin-nav-item active" id="nav-overview" onclick="adminTab('overview')"><span class="admin-nav-icon">📊</span><span class="nav-text"> მიმოხილვა</span></div>
-      <div class="admin-nav-item" id="nav-products" onclick="adminTab('products')"><span class="admin-nav-icon">🛍</span><span class="nav-text"> პროდუქტები</span></div>
-      <div class="admin-nav-item" id="nav-orders" onclick="adminTab('orders')"><span class="admin-nav-icon">📦</span><span class="nav-text"> შეკვეთები</span></div>
+      <div class="admin-nav-item active" id="nav-overview" onclick="adminTab('overview')">
+        <span class="admin-nav-icon">📊</span><span class="nav-text">მიმოხილვა</span>
+      </div>
+      <div class="admin-nav-item" id="nav-products" onclick="adminTab('products')">
+        <span class="admin-nav-icon">🛍</span><span class="nav-text">პროდუქტები</span>
+      </div>
+      <div class="admin-nav-item" id="nav-orders" onclick="adminTab('orders')">
+        <span class="admin-nav-icon">📦</span><span class="nav-text">შეკვეთები</span>
+      </div>
       <div class="admin-nav-label" style="margin-top:auto">სისტემა</div>
-      <div class="admin-nav-item" onclick="doLogout()"><span class="admin-nav-icon">🚪</span><span class="nav-text"> გამოსვლა</span></div>
+      <div class="admin-nav-item" onclick="doLogout()">
+        <span class="admin-nav-icon">🚪</span><span class="nav-text">გამოსვლა</span>
+      </div>
     </aside>
+
     <main class="admin-content">
-      <!-- OVERVIEW -->
+      <!-- Overview Tab -->
       <div id="tab-overview">
         <div class="admin-page-title">მიმოხილვა</div>
         <div class="admin-page-sub">მაღაზიის სტატისტიკა რეალურ დროში</div>
         <div class="stats-grid" id="stats-grid"></div>
         <div class="admin-table-wrap">
           <div class="admin-table-head"><div class="admin-table-title">ბოლო შეკვეთები</div></div>
-          <div class="tbl-wrap"><table><thead><tr><th>ID</th><th>მომხმარებელი</th><th>ნივთები</th><th>თანხა</th><th>სტატუსი</th></tr></thead><tbody id="recent-orders-body"></tbody></table></div>
+          <div class="tbl-wrap">
+            <table><thead><tr><th>ID</th><th>მომხმარებელი</th><th>ნივთები</th><th>თანხა</th><th>სტატუსი</th></tr></thead>
+            <tbody id="recent-orders-body"></tbody></table>
+          </div>
         </div>
       </div>
-      <!-- PRODUCTS -->
+
+      <!-- Products Tab -->
       <div id="tab-products" class="hidden">
         <div class="admin-page-title">პროდუქტები</div>
         <div class="admin-page-sub">დაამატეთ, შეასწორეთ ან წაშალეთ პროდუქტები</div>
@@ -494,35 +1360,42 @@ tr:hover td{background:rgba(0,200,255,.025)}
             <div class="admin-table-title">ყველა პროდუქტი</div>
             <button class="admin-add-btn" onclick="openProductForm(null)">+ ახალი პროდუქტი</button>
           </div>
-          <div class="tbl-wrap"><table><thead><tr><th>სურათი</th><th>პროდუქტი</th><th>ფასი</th><th>მარაგი</th><th>სტატუსი</th><th>მოქმედება</th></tr></thead><tbody id="products-table-body"></tbody></table></div>
+          <div class="tbl-wrap">
+            <table><thead><tr><th>სურათი</th><th>პროდუქტი</th><th>ფასი</th><th>მარაგი</th><th>სტატუსი</th><th>მოქმედება</th></tr></thead>
+            <tbody id="products-table-body"></tbody></table>
+          </div>
         </div>
       </div>
-      <!-- ORDERS -->
+
+      <!-- Orders Tab -->
       <div id="tab-orders" class="hidden">
         <div class="admin-page-title">შეკვეთები</div>
         <div class="admin-page-sub">ყველა დადასტურებული შეკვეთა</div>
         <div class="admin-table-wrap">
           <div class="admin-table-head"><div class="admin-table-title">შეკვეთების ისტორია</div></div>
-          <div class="tbl-wrap"><table><thead><tr><th>ტრანზ. ID</th><th>მომხმარებელი</th><th>მისამართი</th><th>ნივთები</th><th>თანხა</th><th>სტატუსი</th></tr></thead><tbody id="orders-table-body"></tbody></table></div>
+          <div class="tbl-wrap">
+            <table><thead><tr><th>ტრანზ. ID</th><th>მომხმარებელი</th><th>მისამართი</th><th>ნივთები</th><th>თანხა</th><th>სტატუსი</th></tr></thead>
+            <tbody id="orders-table-body"></tbody></table>
+          </div>
         </div>
       </div>
     </main>
   </div>
 </div>
 
-<!-- PRODUCT VIEW MODAL -->
+<!-- ════════════ PRODUCT VIEW MODAL ════════════ -->
 <div id="product-modal-overlay" class="modal-overlay hidden" onclick="closePModal()">
   <div class="modal" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closePModal()">✕</button>
+    <button class="modal-close" onclick="closePModal()" aria-label="დახურვა">✕</button>
     <div class="modal-img-side" id="pmodal-img-side">
-      <div id="pmodal-img-wrap"></div>
+      <div id="pmodal-img-wrap" style="height:100%"></div>
     </div>
     <div class="modal-right">
       <div class="modal-eyebrow">ხელნაკეთი ორიგინალი</div>
-      <div class="modal-title" id="pmodal-title"></div>
-      <div class="modal-sub" id="pmodal-sub"></div>
+      <div class="modal-title"  id="pmodal-title"></div>
+      <div class="modal-sub"   id="pmodal-sub"></div>
       <div class="modal-divider"></div>
-      <div class="modal-desc" id="pmodal-desc"></div>
+      <div class="modal-desc"  id="pmodal-desc"></div>
       <div class="modal-price" id="pmodal-price"></div>
       <div class="modal-stock-info" id="pmodal-stock"></div>
       <button class="modal-add" id="pmodal-add-btn" onclick="modalAddCart()"></button>
@@ -530,56 +1403,55 @@ tr:hover td{background:rgba(0,200,255,.025)}
   </div>
 </div>
 
-<!-- CART DRAWER -->
+<!-- ════════════ CART DRAWER ════════════ -->
 <div id="cart-overlay" class="cart-overlay hidden" onclick="closeCart()"></div>
 <div id="cart-drawer" class="cart-drawer hidden">
   <div class="cart-head">
     <div class="cart-head-title" id="cart-head-title">კალათა</div>
-    <button class="close-btn" onclick="closeCart()">✕</button>
+    <button class="close-btn" onclick="closeCart()" aria-label="კალათის დახურვა">✕</button>
   </div>
   <div class="cart-items" id="cart-items-list"></div>
   <div class="cart-foot">
-    <div class="cart-total"><span class="cart-total-label">შუალედური ჯამი</span><span class="cart-total-val" id="cart-subtotal">₾0.00</span></div>
+    <div class="cart-total">
+      <span class="cart-total-label">შუალედური ჯამი</span>
+      <span class="cart-total-val" id="cart-subtotal">₾0.00</span>
+    </div>
     <button class="checkout-btn" id="checkout-btn" onclick="goToCheckout()">შეკვეთის გაფორმება →</button>
   </div>
 </div>
 
-<!-- PRODUCT FORM MODAL -->
+<!-- ════════════ PRODUCT FORM MODAL ════════════ -->
 <div id="pform-overlay" class="form-modal-overlay hidden" onclick="closePFormOverlay(event)">
   <div class="form-modal" onclick="event.stopPropagation()">
     <button class="form-modal-close" onclick="closePForm()">✕</button>
     <h3 id="pform-heading">ახალი პროდუქტი</h3>
     <p class="form-modal-sub">შეავსეთ ყველა სავალდებულო ველი (*)</p>
-    <div style="display:flex;flex-direction:column;gap:18px">
-
-      <!-- IMAGE UPLOAD -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <!-- Image upload -->
       <div class="form-group">
         <label class="form-label">პროდუქტის სურათი</label>
         <div id="img-upload-area" class="img-upload-area" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
           <input type="file" id="pf-img-input" accept="image/*" onchange="handleImgFile(event)">
           <span class="img-upload-icon">🖼</span>
-          <div class="img-upload-label">
-            <strong>დააწკაპეთ სურათის ასარჩევად</strong><br>
-            ან გადმოათრიეთ აქ · PNG, JPG, WEBP · მაქს. 5MB
-          </div>
+          <div class="img-upload-label"><strong>დააწკაპეთ სურათის ასარჩევად</strong><br>ან გადმოათრიეთ · PNG, JPG, WEBP · მაქს. 5MB</div>
         </div>
         <div id="img-preview-container" class="hidden">
           <div class="img-preview-wrap">
             <img id="img-preview" src="" alt="preview">
-            <button class="img-preview-remove" onclick="removeImg()" title="სურათის წაშლა">✕</button>
+            <button class="img-preview-remove" onclick="removeImg()" aria-label="სურათის წაშლა">✕</button>
             <div class="img-preview-label" id="img-preview-label"></div>
           </div>
         </div>
       </div>
-
+      <!-- Fields -->
       <div class="form-row">
         <div class="form-group"><label class="form-label">დასახელება *</label><input class="form-input" id="pf-title" placeholder="Totoro's Forest"></div>
         <div class="form-group"><label class="form-label">ქვეტექსტი</label><input class="form-input" id="pf-sub" placeholder="ფისი და კაკლის ხე"></div>
       </div>
       <div class="form-group"><label class="form-label">აღწერა</label><textarea class="form-input" id="pf-desc" placeholder="პროდუქტის დეტალური აღწერა..."></textarea></div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">ფასი (₾) *</label><input class="form-input" id="pf-price" type="number" placeholder="189" min="0" step="0.01"></div>
-        <div class="form-group"><label class="form-label">მარაგი (ც.) *</label><input class="form-input" id="pf-qty" type="number" placeholder="10" min="0"></div>
+        <div class="form-group"><label class="form-label">ფასი (₾) *</label><input class="form-input" id="pf-price" type="number" placeholder="189" min="0" step="0.01" inputmode="decimal"></div>
+        <div class="form-group"><label class="form-label">მარაგი (ც.) *</label><input class="form-input" id="pf-qty" type="number" placeholder="10" min="0" inputmode="numeric"></div>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -594,44 +1466,44 @@ tr:hover td{background:rgba(0,200,255,.025)}
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">სარეზერვო ფერი <span style="color:var(--muted)">(სურათის გარეშე)</span></label>
+          <label class="form-label">სარეზერვო ფერი</label>
           <div class="color-picker" id="color-picker"></div>
         </div>
       </div>
     </div>
     <div class="form-modal-actions">
       <button class="modal-cancel-btn" onclick="closePForm()">გაუქმება</button>
-      <button class="modal-save-btn" onclick="saveProduct()">შენახვა ✓</button>
+      <button class="modal-save-btn"   onclick="saveProduct()">შენახვა ✓</button>
     </div>
   </div>
 </div>
 
-<!-- CONFIRM DELETE -->
+<!-- ════════════ CONFIRM DELETE ════════════ -->
 <div id="confirm-overlay" class="form-modal-overlay hidden" onclick="closeConfirm()">
   <div class="confirm-box" onclick="event.stopPropagation()">
     <h4>პროდუქტის წაშლა</h4>
     <p>დარწმუნებული ხართ? ეს მოქმედება შეუქცევადია.</p>
     <div class="confirm-actions">
       <button class="confirm-cancel-btn" onclick="closeConfirm()">გაუქმება</button>
-      <button class="confirm-del-btn" onclick="confirmDelete()">წაშლა</button>
+      <button class="confirm-del-btn"    onclick="confirmDelete()">წაშლა</button>
     </div>
   </div>
 </div>
 
-<!-- PROCESSING -->
+<!-- ════════════ PROCESSING ════════════ -->
 <div id="processing" class="processing hidden">
   <div class="spinner"></div>
   <div class="processing-text">მუშავდება გადახდა…</div>
 </div>
 
-<!-- TOAST -->
+<!-- ════════════ TOAST ════════════ -->
 <div id="toast" class="toast hidden"></div>
 
 <script>
-// ════════════════════════════════════════════
-//  CONSTANTS & STATE
-// ════════════════════════════════════════════
-const CREDS = { user:'admin', pass:'frozen2025' };
+/* ════════════════════════════════════════════════════════════
+   DATA
+   ════════════════════════════════════════════════════════════ */
+const CREDS = { user: 'admin', pass: 'frozen2025' };
 const HUES  = ['#00c8ff','#7df9ff','#a020f0','#00f5c8','#ff5a9e','#0888ff','#ff6b35','#ffd700','#7fff00','#ff4d6d'];
 
 let products = [
@@ -650,25 +1522,21 @@ let currentModalId = null;
 let editingId = null;
 let deletingId = null;
 let selHue = '#00c8ff';
-let currentImgData = null; // base64 string
+let currentImgData = null;
 let nextId = 100;
 let toastTimer;
+let mobileMenuOpen = false;
 
-// ════════════════════════════════════════════
-//  UTILS
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   UTILS
+   ════════════════════════════════════════════════════════════ */
 const $   = id => document.getElementById(id);
 const fmt = n  => '₾' + Number(n).toFixed(2);
 const cartTotal = () => cart.reduce((s,i) => s + i.price * i.qty, 0);
 const cartCount = () => cart.reduce((s,i) => s + i.qty, 0);
 const inCart    = id => cart.some(i => i.id === id);
 
-function imgTag(src, hue, alt='', cls='') {
-  if (src) return `<img src="${src}" alt="${alt}" class="${cls}" loading="lazy">`;
-  return `<div class="card-img-placeholder"><div class="placeholder-icon" style="color:${hue}60;filter:drop-shadow(0 0 20px ${hue})">❄️</div></div>`;
-}
-
-function showToast(msg, type='ok') {
+function showToast(msg, type = 'ok') {
   const t = $('toast');
   t.className = 'toast t' + type;
   t.innerHTML = `<div class="toast-dot"></div><span>${msg}</span>`;
@@ -677,78 +1545,85 @@ function showToast(msg, type='ok') {
   toastTimer = setTimeout(() => t.classList.add('hidden'), 3200);
 }
 
-// ════════════════════════════════════════════
-//  IMAGE UPLOAD HANDLERS
-// ════════════════════════════════════════════
-function handleImgFile(e) {
-  const file = e.target.files[0];
-  if (file) loadImgFile(file);
+/* ════════════════════════════════════════════════════════════
+   HAMBURGER / MOBILE MENU
+   ════════════════════════════════════════════════════════════ */
+function toggleMobileMenu() {
+  mobileMenuOpen = !mobileMenuOpen;
+  const btn  = $('hamburger');
+  const menu = $('mobile-menu');
+  btn.classList.toggle('open', mobileMenuOpen);
+  btn.setAttribute('aria-expanded', mobileMenuOpen);
+  menu.classList.toggle('open', mobileMenuOpen);
+}
+function closeMobileMenu() {
+  mobileMenuOpen = false;
+  $('hamburger').classList.remove('open');
+  $('hamburger').setAttribute('aria-expanded', 'false');
+  $('mobile-menu').classList.remove('open');
+}
+/* Close menu when tapping outside */
+document.addEventListener('click', e => {
+  if (mobileMenuOpen && !e.target.closest('.hamburger') && !e.target.closest('.mobile-menu')) {
+    closeMobileMenu();
+  }
+});
+function mobileCart()  { closeMobileMenu(); openCart(); }
+function mobileAdmin() { closeMobileMenu(); showAdminLogin(); }
+
+/* Update cart count in mobile menu */
+function updateMobileCartCount() {
+  const n = cartCount();
+  const el = $('mobile-cart-count');
+  if (!el) return;
+  el.textContent = n;
+  el.classList.toggle('hidden', n === 0);
 }
 
-function loadImgFile(file) {
-  if (file.size > 5 * 1024 * 1024) { showToast('სურათი 5MB-ზე მეტია','err'); return; }
-  const reader = new FileReader();
-  reader.onload = ev => showImgPreview(ev.target.result, file.name);
-  reader.readAsDataURL(file);
-}
-
-function showImgPreview(dataUrl, name) {
-  currentImgData = dataUrl;
-  $('img-upload-area').classList.add('hidden');
-  $('img-preview-container').classList.remove('hidden');
-  $('img-preview').src = dataUrl;
-  $('img-preview-label').textContent = name || 'ატვირთული სურათი';
-}
-
-function removeImg() {
-  currentImgData = null;
-  $('img-preview-container').classList.add('hidden');
-  $('img-upload-area').classList.remove('hidden');
-  $('pf-img-input').value = '';
-}
-
-function handleDragOver(e) { e.preventDefault(); $('img-upload-area').classList.add('drag'); }
-function handleDragLeave() { $('img-upload-area').classList.remove('drag'); }
-function handleDrop(e) {
-  e.preventDefault();
-  $('img-upload-area').classList.remove('drag');
-  const file = e.dataTransfer.files[0];
-  if (file && file.type.startsWith('image/')) loadImgFile(file);
-}
-
-// ════════════════════════════════════════════
-//  ROUTING
-// ════════════════════════════════════════════
-const PAGES = ['home','checkout','success','admin-login','admin'];
+/* ════════════════════════════════════════════════════════════
+   PAGE ROUTING
+   ════════════════════════════════════════════════════════════ */
+const PAGES = ['home', 'checkout', 'success', 'admin-login', 'admin'];
 function showPage(p) {
-  PAGES.forEach(x => $('page-'+x).classList.toggle('hidden', x !== p));
+  PAGES.forEach(x => $('page-' + x).classList.toggle('hidden', x !== p));
   window.scrollTo(0, 0);
+  closeMobileMenu();
   const isAdminArea = p === 'admin' || p === 'admin-login';
   $('admin-header-btn').classList.toggle('hidden', adminLoggedIn || isAdminArea);
   $('cart-header-btn').classList.toggle('hidden', isAdminArea);
 }
 function goHome() { showPage('home'); renderGrid(); }
 
-// ════════════════════════════════════════════
-//  AUTH
-// ════════════════════════════════════════════
-function showAdminLogin() { showPage('admin-login'); $('admin-user').focus(); }
+/* ════════════════════════════════════════════════════════════
+   ADMIN AUTH
+   ════════════════════════════════════════════════════════════ */
+function showAdminLogin() { showPage('admin-login'); setTimeout(() => $('admin-user').focus(), 100); }
 function doLogin() {
   const u = $('admin-user').value.trim(), p = $('admin-pass').value;
   if (u === CREDS.user && p === CREDS.pass) {
-    adminLoggedIn = true; $('login-err').textContent = ''; $('admin-pass').value = '';
-    showPage('admin'); adminTab('overview');
-  } else { $('login-err').textContent = '❌ არასწორი მომხმარებელი ან პაროლი'; }
+    adminLoggedIn = true;
+    $('login-err').textContent = '';
+    $('admin-pass').value = '';
+    showPage('admin');
+    adminTab('overview');
+  } else {
+    $('login-err').textContent = '❌ არასწორი მომხმარებელი ან პაროლი';
+  }
 }
 function doLogout() { adminLoggedIn = false; showPage('home'); renderGrid(); }
 
-// ════════════════════════════════════════════
-//  ADMIN TABS
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   ADMIN SIDEBAR (desktop slide, mobile bottom bar)
+   ════════════════════════════════════════════════════════════ */
+function closeSidebar() { $('sidebar-overlay').classList.remove('open'); }
+
+/* ════════════════════════════════════════════════════════════
+   ADMIN TABS
+   ════════════════════════════════════════════════════════════ */
 function adminTab(tab) {
-  ['overview','products','orders'].forEach(t => {
-    $('tab-'+t).classList.toggle('hidden', t !== tab);
-    $('nav-'+t) && $('nav-'+t).classList.toggle('active', t === tab);
+  ['overview', 'products', 'orders'].forEach(t => {
+    $('tab-' + t).classList.toggle('hidden', t !== tab);
+    $('nav-' + t) && $('nav-' + t).classList.toggle('active', t === tab);
   });
   if (tab === 'overview') renderOverview();
   if (tab === 'products') renderProductsTable();
@@ -759,12 +1634,12 @@ function renderOverview() {
   const rev = orders.reduce((s,o) => s + o.total, 0);
   const oos = products.filter(p => p.qty === 0).length;
   $('stats-grid').innerHTML = `
-    <div class="stat-card sc-blue"><div class="stat-val">${orders.length}</div><div class="stat-label">სულ შეკვეთა</div></div>
+    <div class="stat-card sc-blue" ><div class="stat-val">${orders.length}</div><div class="stat-label">სულ შეკვეთა</div></div>
     <div class="stat-card sc-green"><div class="stat-val">${fmt(rev)}</div><div class="stat-label">სულ შემოსავალი</div></div>
-    <div class="stat-card sc-warn"><div class="stat-val">${products.length}</div><div class="stat-label">პროდუქტი</div></div>
-    <div class="stat-card sc-red"><div class="stat-val">${oos}</div><div class="stat-label">ამოწურული</div></div>`;
+    <div class="stat-card sc-warn" ><div class="stat-val">${products.length}</div><div class="stat-label">პროდუქტი</div></div>
+    <div class="stat-card sc-red"  ><div class="stat-val">${oos}</div><div class="stat-label">ამოწურული</div></div>`;
   const tb = $('recent-orders-body');
-  if (!orders.length) { tb.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:30px">შეკვეთები ჯერ არ არის</td></tr>'; return; }
+  if (!orders.length) { tb.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:28px">შეკვეთები ჯერ არ არის</td></tr>'; return; }
   tb.innerHTML = orders.slice().reverse().slice(0,10).map(o => `
     <tr>
       <td style="font-family:monospace;font-size:.72rem;color:var(--glow)">${o.txId}</td>
@@ -778,8 +1653,8 @@ function renderOverview() {
 function renderProductsTable() {
   $('products-table-body').innerHTML = products.map(p => {
     const imgCell = p.img
-      ? `<div class="tbl-img"><img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block"></div>`
-      : `<div class="tbl-img"><div class="tbl-img-ph" style="background:radial-gradient(ellipse at center,${p.hue}22 0%,var(--bg3) 100%)">❄️</div></div>`;
+      ? `<div class="tbl-img"><img src="${p.img}" alt="${p.title}"></div>`
+      : `<div class="tbl-img"><div class="tbl-img-ph" style="background:radial-gradient(ellipse,${p.hue}22 0%,var(--bg3) 100%)">❄️</div></div>`;
     const badge = p.qty === 0
       ? '<span class="badge b-oos">ამოწურულია</span>'
       : p.qty <= 3
@@ -787,38 +1662,41 @@ function renderProductsTable() {
         : `<span class="badge b-ok">მარაგშია</span>`;
     return `<tr>
       <td>${imgCell}</td>
-      <td><div style="font-family:var(--font-h);font-size:.85rem">${p.title}</div><div style="font-size:.7rem;color:var(--muted);margin-top:2px">${p.subtitle||''}</div></td>
+      <td>
+        <div style="font-family:var(--font-h);font-size:.85rem">${p.title}</div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:2px">${p.subtitle || ''}</div>
+      </td>
       <td style="color:var(--glow)">${fmt(p.price)}</td>
       <td>${p.qty}</td>
       <td>${badge}</td>
       <td><div class="tbl-actions">
         <button class="tbl-btn edit" onclick="openProductForm(${p.id})">შეცვლა</button>
-        <button class="tbl-btn del" onclick="openConfirm(${p.id})">წაშლა</button>
+        <button class="tbl-btn del"  onclick="openConfirm(${p.id})">წაშლა</button>
       </div></td>
     </tr>`;
-  }).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:30px">პროდუქტები არ არის</td></tr>';
+  }).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:28px">პროდუქტები არ არის</td></tr>';
 }
 
 function renderOrdersTable() {
   const tb = $('orders-table-body');
-  if (!orders.length) { tb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:30px">შეკვეთები ჯერ არ არის</td></tr>'; return; }
+  if (!orders.length) { tb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:28px">შეკვეთები ჯერ არ არის</td></tr>'; return; }
   tb.innerHTML = orders.slice().reverse().map(o => `
     <tr>
       <td style="font-family:monospace;font-size:.72rem;color:var(--glow)">${o.txId}</td>
       <td>${o.first} ${o.last}<br><span style="font-size:.7rem;color:var(--muted)">${o.phone}</span></td>
-      <td style="font-size:.78rem">${o.street}${o.apt?', '+o.apt:''}, ${o.city}</td>
-      <td style="font-size:.75rem">${o.items.map(i=>`${i.title} ×${i.qty}`).join('<br>')}</td>
+      <td style="font-size:.78rem">${o.street}${o.apt ? ', ' + o.apt : ''}, ${o.city}</td>
+      <td style="font-size:.75rem">${o.items.map(i => `${i.title} ×${i.qty}`).join('<br>')}</td>
       <td style="color:var(--glow2)">${fmt(o.total)}</td>
       <td><span class="badge b-paid">გადახდილია</span></td>
     </tr>`).join('');
 }
 
-// ════════════════════════════════════════════
-//  PRODUCT FORM
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   PRODUCT FORM
+   ════════════════════════════════════════════════════════════ */
 function buildColorPicker() {
   $('color-picker').innerHTML = HUES.map(h =>
-    `<div class="color-opt${h===selHue?' sel':''}" style="background:${h}" onclick="pickHue('${h}')"></div>`
+    `<div class="color-opt${h === selHue ? ' sel' : ''}" style="background:${h}" onclick="pickHue('${h}')"></div>`
   ).join('');
 }
 function pickHue(h) { selHue = h; buildColorPicker(); }
@@ -826,7 +1704,6 @@ function pickHue(h) { selHue = h; buildColorPicker(); }
 function openProductForm(id) {
   editingId = id;
   currentImgData = null;
-  // reset image UI
   $('img-upload-area').classList.remove('hidden');
   $('img-preview-container').classList.add('hidden');
   $('pf-img-input').value = '';
@@ -841,7 +1718,7 @@ function openProductForm(id) {
     $('pf-qty').value    = p.qty;
     $('pf-tag').value    = p.tag || '';
     selHue = p.hue;
-    if (p.img) { showImgPreview(p.img, 'არსებული სურათი'); }
+    if (p.img) showImgPreview(p.img, 'არსებული სურათი');
   } else {
     $('pform-heading').textContent = 'ახალი პროდუქტი';
     ['pf-title','pf-sub','pf-desc','pf-price','pf-qty'].forEach(f => $(f).value = '');
@@ -851,16 +1728,14 @@ function openProductForm(id) {
   buildColorPicker();
   $('pform-overlay').classList.remove('hidden');
 }
-
-function closePForm() { $('pform-overlay').classList.add('hidden'); }
-function closePFormOverlay(e) { if (e.target === $('pform-overlay')) closePForm(); }
+function closePForm()          { $('pform-overlay').classList.add('hidden'); }
+function closePFormOverlay(e)  { if (e.target === $('pform-overlay')) closePForm(); }
 
 function saveProduct() {
   const title = $('pf-title').value.trim();
   const price = parseFloat($('pf-price').value);
   const qty   = parseInt($('pf-qty').value);
-  if (!title || isNaN(price) || isNaN(qty)) { showToast('შეავსეთ სავალდებულო ველები','err'); return; }
-
+  if (!title || isNaN(price) || isNaN(qty)) { showToast('შეავსეთ სავალდებულო ველები', 'err'); return; }
   const data = {
     title, subtitle: $('pf-sub').value.trim(),
     desc: $('pf-desc').value.trim(),
@@ -868,10 +1743,8 @@ function saveProduct() {
     tag: $('pf-tag').value || null,
     img: currentImgData,
   };
-
   if (editingId) {
     const idx = products.findIndex(p => p.id === editingId);
-    // keep old image if no new one uploaded
     if (!currentImgData && products[idx].img) data.img = products[idx].img;
     products[idx] = { ...products[idx], ...data };
     showToast('პროდუქტი განახლდა ✓');
@@ -884,9 +1757,41 @@ function saveProduct() {
   renderGrid();
 }
 
-// ════════════════════════════════════════════
-//  DELETE
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   IMAGE UPLOAD
+   ════════════════════════════════════════════════════════════ */
+function handleImgFile(e) { const f = e.target.files[0]; if (f) loadImgFile(f); }
+function loadImgFile(file) {
+  if (file.size > 5 * 1024 * 1024) { showToast('სურათი 5MB-ზე მეტია', 'err'); return; }
+  const reader = new FileReader();
+  reader.onload = ev => showImgPreview(ev.target.result, file.name);
+  reader.readAsDataURL(file);
+}
+function showImgPreview(dataUrl, name) {
+  currentImgData = dataUrl;
+  $('img-upload-area').classList.add('hidden');
+  $('img-preview-container').classList.remove('hidden');
+  $('img-preview').src = dataUrl;
+  $('img-preview-label').textContent = name || 'ატვირთული სურათი';
+}
+function removeImg() {
+  currentImgData = null;
+  $('img-preview-container').classList.add('hidden');
+  $('img-upload-area').classList.remove('hidden');
+  $('pf-img-input').value = '';
+}
+function handleDragOver(e)  { e.preventDefault(); $('img-upload-area').classList.add('drag'); }
+function handleDragLeave()  { $('img-upload-area').classList.remove('drag'); }
+function handleDrop(e) {
+  e.preventDefault();
+  $('img-upload-area').classList.remove('drag');
+  const f = e.dataTransfer.files[0];
+  if (f && f.type.startsWith('image/')) loadImgFile(f);
+}
+
+/* ════════════════════════════════════════════════════════════
+   DELETE
+   ════════════════════════════════════════════════════════════ */
 function openConfirm(id) { deletingId = id; $('confirm-overlay').classList.remove('hidden'); }
 function closeConfirm()  { $('confirm-overlay').classList.add('hidden'); deletingId = null; }
 function confirmDelete() {
@@ -894,35 +1799,35 @@ function confirmDelete() {
   cart     = cart.filter(i => i.id !== deletingId);
   updateBadge(); closeConfirm();
   renderProductsTable(); renderGrid();
-  showToast('პროდუქტი წაიშალა','err');
+  showToast('პროდუქტი წაიშალა', 'err');
 }
 
-// ════════════════════════════════════════════
-//  PRODUCT GRID
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   PRODUCT GRID
+   ════════════════════════════════════════════════════════════ */
 function renderGrid() {
   $('product-grid').innerHTML = products.map(p => {
     const oos = p.qty === 0;
     const imgHtml = p.img
-      ? `<img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s">`
-      : `<div class="card-img-placeholder" style="background:radial-gradient(ellipse at center,${p.hue}20 0%,var(--bg3) 75%)">
+      ? `<img src="${p.img}" alt="${p.title}">`
+      : `<div class="card-img-placeholder" style="background:radial-gradient(ellipse,${p.hue}20 0%,var(--bg3) 75%)">
            <div class="placeholder-icon" style="color:${p.hue};filter:drop-shadow(0 0 24px ${p.hue})">❄️</div>
          </div>`;
     return `
-    <div class="card${oos?' oos':''}" ${oos?'':'onclick="openModal('+p.id+')"'}>
+    <div class="card${oos ? ' oos' : ''}" ${oos ? '' : 'onclick="openModal(' + p.id + ')"'}>
       <div class="card-img">
-        <div class="card-img-inner" style="height:100%">${imgHtml}</div>
+        <div style="height:100%">${imgHtml}</div>
         <div class="card-img-overlay"></div>
         ${oos ? '<div class="card-tag oos-tag">მარაგი ამოიწურა</div>' : p.tag ? `<div class="card-tag">${p.tag}</div>` : ''}
       </div>
       <div class="card-body">
         <div class="card-title">${p.title}</div>
-        <div class="card-sub">${p.subtitle||''}</div>
+        <div class="card-sub">${p.subtitle || ''}</div>
         ${!oos && p.qty <= 3 ? `<div class="card-stock-low">⚠ მარაგი: ${p.qty} ც.</div>` : ''}
         <div class="card-footer">
           <div class="card-price">${fmt(p.price)}</div>
-          <button class="add-btn${inCart(p.id)?' added':''}" id="add-btn-${p.id}"
-            ${oos?'disabled':''}
+          <button class="add-btn${inCart(p.id) ? ' added' : ''}" id="add-btn-${p.id}"
+            ${oos ? 'disabled' : ''}
             onclick="event.stopPropagation();addById(${p.id})">
             ${oos ? 'ამოწურულია' : inCart(p.id) ? '✓ დამატებულია' : 'კალათაში'}
           </button>
@@ -934,23 +1839,22 @@ function renderGrid() {
 
 function refreshBtns() {
   products.forEach(p => {
-    const b = $('add-btn-'+p.id); if (!b) return;
+    const b = $('add-btn-' + p.id); if (!b) return;
     const oos = p.qty === 0, added = inCart(p.id);
     b.disabled = oos;
     b.className = 'add-btn' + (added && !oos ? ' added' : '');
     b.textContent = oos ? 'ამოწურულია' : added ? '✓ დამატებულია' : 'კალათაში';
   });
 }
-
 function addById(id) {
   const p = products.find(x => x.id === id);
   if (!p || p.qty === 0) return;
   addToCart(p); refreshBtns(); updateModalBtn();
 }
 
-// ════════════════════════════════════════════
-//  CART
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   CART
+   ════════════════════════════════════════════════════════════ */
 function addToCart(p) {
   const ex = cart.find(i => i.id === p.id);
   if (ex) ex.qty++;
@@ -967,6 +1871,7 @@ function updateBadge() {
   const n = cartCount();
   $('cart-badge').textContent = n;
   $('cart-badge').classList.toggle('hidden', n === 0);
+  updateMobileCartCount();
 }
 function renderCartItems() {
   const n = cartCount();
@@ -988,36 +1893,34 @@ function renderCartItems() {
         <div class="cart-item-title">${it.title}</div>
         <div class="cart-item-price">${fmt(it.price * it.qty)}</div>
         <div class="cart-qty">
-          <button class="qty-btn" onclick="changeQty(${it.id},-1)">−</button>
+          <button class="qty-btn" onclick="changeQty(${it.id},-1)" aria-label="რაოდენობის შემცირება">−</button>
           <span class="qty-num">${it.qty}</span>
-          <button class="qty-btn" onclick="changeQty(${it.id},1)">+</button>
+          <button class="qty-btn" onclick="changeQty(${it.id},1)"  aria-label="რაოდენობის გაზრდა">+</button>
         </div>
       </div>
-      <button class="remove-btn" onclick="removeFromCart(${it.id})">🗑</button>
+      <button class="remove-btn" onclick="removeFromCart(${it.id})" aria-label="წაშლა">🗑</button>
     </div>`;
   }).join('');
 }
 function openCart()  { renderCartItems(); $('cart-overlay').classList.remove('hidden'); $('cart-drawer').classList.remove('hidden'); }
-function closeCart() { $('cart-overlay').classList.add('hidden');  $('cart-drawer').classList.add('hidden'); }
+function closeCart() { $('cart-overlay').classList.add('hidden'); $('cart-drawer').classList.add('hidden'); }
 function goToCheckout() { closeCart(); showPage('checkout'); renderSummary(); }
 
-// ════════════════════════════════════════════
-//  PRODUCT MODAL
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   PRODUCT MODAL
+   ════════════════════════════════════════════════════════════ */
 function openModal(id) {
   const p = products.find(x => x.id === id); if (!p) return;
   currentModalId = id;
-  const imgWrap = $('pmodal-img-wrap');
-  if (p.img) {
-    imgWrap.innerHTML = `<img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block">`;
-  } else {
-    imgWrap.innerHTML = `<div class="modal-img-placeholder" style="height:100%;background:radial-gradient(ellipse at center,${p.hue}22 0%,var(--bg3) 75%)"><span style="color:${p.hue};filter:drop-shadow(0 0 30px ${p.hue})">❄️</span></div>`;
-  }
-  $('pmodal-title').textContent = p.title;
-  $('pmodal-sub').textContent   = p.subtitle || '';
-  $('pmodal-desc').textContent  = p.desc || '';
-  $('pmodal-price').textContent = fmt(p.price);
-  $('pmodal-stock').textContent = p.qty > 0 ? `მარაგი: ${p.qty} ც.` : '';
+  const wrap = $('pmodal-img-wrap');
+  wrap.innerHTML = p.img
+    ? `<img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block">`
+    : `<div class="modal-img-placeholder" style="height:100%;background:radial-gradient(ellipse,${p.hue}22 0%,var(--bg3) 75%)"><span style="color:${p.hue}">❄️</span></div>`;
+  $('pmodal-title').textContent  = p.title;
+  $('pmodal-sub').textContent    = p.subtitle || '';
+  $('pmodal-desc').textContent   = p.desc || '';
+  $('pmodal-price').textContent  = fmt(p.price);
+  $('pmodal-stock').textContent  = p.qty > 0 ? `მარაგი: ${p.qty} ც.` : '';
   updateModalBtn();
   $('product-modal-overlay').classList.remove('hidden');
 }
@@ -1038,9 +1941,9 @@ function modalAddCart() {
   addToCart(p); refreshBtns(); updateModalBtn();
 }
 
-// ════════════════════════════════════════════
-//  CHECKOUT
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   CHECKOUT
+   ════════════════════════════════════════════════════════════ */
 function renderSummary() {
   $('summary-items').innerHTML = cart.map(it => {
     const thumb = it.img
@@ -1063,20 +1966,20 @@ function renderSummary() {
 
 function submitOrder() {
   const v = {
-    first:  $('f-first').value.trim(),  last:   $('f-last').value.trim(),
-    email:  $('f-email').value.trim(),  phone:  $('f-phone').value.trim(),
-    city:   $('f-city').value.trim(),   street: $('f-street').value.trim(),
+    first:  $('f-first').value.trim(),   last:   $('f-last').value.trim(),
+    email:  $('f-email').value.trim(),   phone:  $('f-phone').value.trim(),
+    city:   $('f-city').value.trim(),    street: $('f-street').value.trim(),
     apt:    $('f-apt').value.trim(),
-    card:   $('f-card').value.trim(),   expiry: $('f-expiry').value.trim(),
+    card:   $('f-card').value.trim(),    expiry: $('f-expiry').value.trim(),
     cvv:    $('f-cvv').value.trim(),
   };
-  if (!v.first||!v.last||!v.email||!v.phone||!v.city||!v.street||!v.card||!v.expiry||!v.cvv) {
-    showToast('შეავსეთ ყველა სავალდებულო ველი','err'); return;
+  if (!v.first || !v.last || !v.email || !v.phone || !v.city || !v.street || !v.card || !v.expiry || !v.cvv) {
+    showToast('შეავსეთ ყველა სავალდებულო ველი', 'err'); return;
   }
   $('processing').classList.remove('hidden');
   setTimeout(() => {
     $('processing').classList.add('hidden');
-    // ── REDUCE STOCK ──
+    /* Reduce stock */
     cart.forEach(ci => {
       const p = products.find(x => x.id === ci.id);
       if (p) p.qty = Math.max(0, p.qty - ci.qty);
@@ -1095,46 +1998,51 @@ function showSuccessPage(o) {
   $('success-detail').innerHTML = `
     <div class="detail-row"><span class="detail-label">სახელი</span><span class="detail-val">${o.first} ${o.last}</span></div>
     <div class="detail-row"><span class="detail-label">ტელეფონი</span><span class="detail-val">${o.phone}</span></div>
-    <div class="detail-row"><span class="detail-label">მისამართი</span><span class="detail-val">${o.street}${o.apt?', '+o.apt:''}, ${o.city}</span></div>
-    <div class="detail-row"><span class="detail-label">ნივთები</span><span class="detail-val">${o.items.map(i=>i.title).join(', ')}</span></div>
+    <div class="detail-row"><span class="detail-label">მისამართი</span><span class="detail-val">${o.street}${o.apt ? ', ' + o.apt : ''}, ${o.city}</span></div>
+    <div class="detail-row"><span class="detail-label">ნივთები</span><span class="detail-val">${o.items.map(i => i.title).join(', ')}</span></div>
     <div class="detail-row"><span class="detail-label">გადახდილი</span><span class="detail-val" style="color:var(--glow)">${fmt(o.total)}</span></div>`;
   showPage('success');
 }
 
 function resetStore() {
-  ['f-first','f-last','f-email','f-phone','f-city','f-apt','f-street','f-card','f-expiry','f-cvv'].forEach(id => { const e=$(id); if(e) e.value=''; });
+  ['f-first','f-last','f-email','f-phone','f-city','f-apt','f-street','f-card','f-expiry','f-cvv']
+    .forEach(id => { const e = $(id); if (e) e.value = ''; });
   showPage('home'); renderGrid();
 }
 
-// ════════════════════════════════════════════
-//  CARD FORMAT
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   INPUT FORMATTERS
+   ════════════════════════════════════════════════════════════ */
 document.addEventListener('input', e => {
   if (e.target.id === 'f-card') {
-    let v = e.target.value.replace(/\D/g,'').slice(0,16);
-    e.target.value = v.replace(/(.{4})/g,'$1 ').trim();
+    let v = e.target.value.replace(/\D/g, '').slice(0, 16);
+    e.target.value = v.replace(/(.{4})/g, '$1 ').trim();
   }
   if (e.target.id === 'f-expiry') {
-    let v = e.target.value.replace(/\D/g,'');
+    let v = e.target.value.replace(/\D/g, '');
     if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2,4);
     e.target.value = v;
   }
 });
 
-// ════════════════════════════════════════════
-//  KEYBOARD
-// ════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
+   KEYBOARD & GESTURES
+   ════════════════════════════════════════════════════════════ */
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    closePModal(); closeCart();
+    closePModal(); closeCart(); closeMobileMenu();
     $('pform-overlay').classList.add('hidden');
     $('confirm-overlay').classList.add('hidden');
   }
 });
 
-// ════════════════════════════════════════════
-//  INIT
-// ════════════════════════════════════════════
+/* Prevent body scroll when cart/modal is open */
+function lockScroll()   { document.body.style.overflow = 'hidden'; }
+function unlockScroll() { document.body.style.overflow = ''; }
+
+/* ════════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════════ */
 renderGrid();
 </script>
 </body>
